@@ -26,7 +26,9 @@ namespace DRYLib.Db {
       public class Cmd: Disposable<Cmd,SqlCommand>.Inside<Conn> {
          string _txt; public string txt() { return _txt; } public Cmd txt(string txt) { _txt = txt; return this; }
 
-         public Reader read { get { return new Reader().setHost(this).setOrig(this.orig.ExecuteReader()); } }
+         public Cmd exec() { _.open(); this.orig.ExecuteNonQuery(); return this; }
+         public object get() { _.open(); return this.orig.ExecuteScalar (); }
+         public Reader read() { _.open(); return new Reader().setHost(this).setOrig(this.orig.ExecuteReader()); }
          public class Reader: Disposable<Reader, SqlDataReader>.Inside<Cmd>, IEnumerable<IDataRecord> {
             IEnumerator IEnumerable.GetEnumerator() {return ((IEnumerable<IDataRecord>)this).GetEnumerator();}
 
