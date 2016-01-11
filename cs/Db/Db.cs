@@ -15,11 +15,11 @@ namespace DRYLib.Db {
          if(orig.State == ConnectionState.Closed)
             orig.Open();
          if(orig.State != ConnectionState.Open)
-            throw new Ex.NotOpen().add("State",orig.State);
+            throw new Err.NotOpen().add("State",orig.State);
          return this;
       }
-      public class Ex: Core.Err {
-         public class NotOpen: Ex { }
+      public class Err: Core.Err {
+         public class NotOpen: Err { }
       }
 
       public Cmd cmd(string txt) { return new Cmd().setHost(this).txt(txt); }

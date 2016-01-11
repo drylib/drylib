@@ -1,6 +1,10 @@
 ﻿// Copyright (c) 2016 drylib.com - All rights reserved. Terms are in License.cs
 // You are NOT ALLOWED to modify and/or use this code without author permission
 namespace DRYLib.Abbr{
+   public class _      :Parent.Any, AsPrefix<Private>, AsSuffix<Plural> {}
+      public class Parent{public interface Any{}}
+      public class Plural{public interface Any{}}
+      public class Private{public interface Any{}}
    public class acc    :Account.Any{} public class Account{public interface Any{}}
    public class cmd    :Command.Any{} public class Command{public interface Any{}}
    public class cmp    :Compare.Any{} public class Compare{public interface Any{}}
@@ -40,4 +44,7 @@ namespace DRYLib.Abbr{
    public class tx     :Transmission.Any{} public class Transmission{public interface Any{}}
    public class txt    :Text.Any{} public class Text{public interface Any{}}
    public class val    :Value.Any{} public class Value{public interface Any{}}
+
+   public interface AsPrefix<T>{}
+   public interface AsSuffix<T>{}
 }
