@@ -3,7 +3,7 @@
 using System;
 
 namespace DRYLib.Core{
-   public class Wrap<Me,Orig>
+   public class Wrap<Me,Orig>: Abbr.Original.Any
       where Me : Wrap<Me,Orig>
       where Orig : class
    {

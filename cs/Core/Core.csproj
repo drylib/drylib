@@ -40,9 +40,15 @@
     <Compile Include="Time.cs" />
     <Compile Include="Wrap.cs" />
     <Compile Include="Disposable.cs" />
-    <Compile Include="Ex.cs" />
+    <Compile Include="Err.cs" />
     <Compile Include="Inside.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Abbr\Abbr.csproj">
+      <Project>{9ed9ff7d-c98e-4a0f-8371-bbc939cd492a}</Project>
+      <Name>Abbr</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

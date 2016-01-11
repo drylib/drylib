@@ -1,6 +1,6 @@
 ﻿namespace DRYLib{public class License{public string terms{get{return @"
 *******************************************************************************
-        Copyright (c) 2015 drylib.com - All rights reserved.
+        Copyright (c) 2015,2016 drylib.com - All rights reserved.
 
     Copyright Holder (Author) contact info for licensing:
       email author@drylib.com with word ""license"" in email subject line

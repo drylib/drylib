@@ -18,7 +18,7 @@ namespace DRYLib.Db {
             throw new Ex.NotOpen().add("State",orig.State);
          return this;
       }
-      public class Ex: Core.Ex {
+      public class Ex: Core.Err {
          public class NotOpen: Ex { }
       }
 

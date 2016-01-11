@@ -3,8 +3,8 @@
 using System;
 
 namespace DRYLib.Core {
-   public class Ex: Exception {
-      public Ex add(object key, object val) {
+   public class Err: Exception, Abbr.Error.Any{
+      public Err add(object key, object val){
          Data.Add(key, val);
          return this;
       }

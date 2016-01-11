@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{69DAF16E-5F5E-4A8C-8639-37E1012C7301}</ProjectGuid>
+    <ProjectGuid>{9ED9FF7D-C98E-4A0F-8371-BBC939CD492A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DRYLib.Db</RootNamespace>
-    <AssemblyName>DRYLib.Db</AssemblyName>
+    <RootNamespace>DRYLib.Abbr</RootNamespace>
+    <AssemblyName>DRYLib.Abbr</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,18 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Db.cs" />
+    <Compile Include="Abbr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Abbr\Abbr.csproj">
-      <Project>{9ed9ff7d-c98e-4a0f-8371-bbc939cd492a}</Project>
-      <Name>Abbr</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{067d06b2-53a9-4a44-b507-a35f97484d3e}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
