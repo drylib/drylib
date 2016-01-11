@@ -7,44 +7,44 @@ with(drylib)with(dbg)with(tr){
 // a,b c->a,b c;c a,b
 // a,b c,d->a,b c,d;c,d a,b
 tr.perm=function(s){
-	if(s==null || !(s instanceof Object))return
-	var sarr=tr.to.arr(s)
-	var ret={}
-	//log(tr.to.arr(s))
-	arr.perm(tr.to.arr(s),function(p){
-		//log(p,ret)
-		tr.mix(ret,tr.from.arr.and(p))
-	})
-	return ret
+   if(s==null || !(s instanceof Object))return
+   var sarr=tr.to.arr(s)
+   var ret={}
+   //log(tr.to.arr(s))
+   arr.perm(tr.to.arr(s),function(p){
+      //log(p,ret)
+      tr.mix(ret,tr.from.arr.and(p))
+   })
+   return ret
 }
 
 // a b fits into a b c
 tr.fit=function fit(x,y){
-	if(x==null)return true // reached leaf or passed null or undefined (undefined==null too), anyway empty leaf fits anything
-	if(x instanceof Object && !(x instanceof Array)){
-		if(y instanceof Object && !(y instanceof Array))
-			for(var e in x){
-				if(y[e]!==undefined)
-					return fit(x[e],y[e])
-			}
-	}
-	return false
+   if(x==null)return true // reached leaf or passed null or undefined (undefined==null too), anyway empty leaf fits anything
+   if(x instanceof Object && !(x instanceof Array)){
+      if(y instanceof Object && !(y instanceof Array))
+         for(var e in x){
+            if(y[e]!==undefined)
+               return fit(x[e],y[e])
+         }
+   }
+   return false
 }
 
 tr.leaf=function(s,fn){
-	var ret=[]
-	tr.it(s,function(src,i,e,path){
-		if(!path)path=[]
-		else path=path.slice()
-		path.push(i)
-		if(e==null){ //leaf
-			ret.push(path)
-			if(fn)fn(path)
-			return
-		}else
-			return path
-	})
-	return ret
+   var ret=[]
+   tr.it(s,function(src,i,e,path){
+      if(!path)path=[]
+      else path=path.slice()
+      path.push(i)
+      if(e==null){ //leaf
+         ret.push(path)
+         if(fn)fn(path)
+         return
+      }else
+         return path
+   })
+   return ret
 }
 
 
