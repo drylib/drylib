@@ -1,4 +1,0 @@
-C:\p\drylib\cs\Abbr\bin\Debug\DRYLib.Abbr.dll
-C:\p\drylib\cs\Abbr\bin\Debug\DRYLib.Abbr.pdb
-C:\p\drylib\cs\Abbr\obj\Debug\DRYLib.Abbr.dll
-C:\p\drylib\cs\Abbr\obj\Debug\DRYLib.Abbr.pdb
