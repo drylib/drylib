@@ -9,6 +9,7 @@ _test
 bin
 obj
 .vs
+TestResults
 
 # Architecture specific extensions/prefixes
 *.[568vq]
