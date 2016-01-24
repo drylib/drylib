@@ -1,160 +1,176 @@
 ﻿// Copyright (c) 2016 drylib.com - All rights reserved. Terms are in License.cs
 // You are NOT ALLOWED to modify and/or use this code without author permission
 namespace DRYLib.Abbr{
-   public class _      :Parent.Any, AsPrefix<Private>, AsSuffix<Plural> {}
-                        public class Parent{public interface Any{}}
-                        public class Plural{public interface Any{}}
-   public class abbr   :Abbreviation.Any{} public class Abbreviation{public interface Any{}}
-   public class acc    :Account.Any, Accounting.Any {} public class Account{public interface Any{}}
-                                                       public class Accounting{public interface Any{}} // http://www.thefreedictionary.com/Accounting
-   public class agg    :Aggregate.Any{} public class Aggregate{public interface Any{}}
-   public class auth   :Authentication.Any, Authenticate.Any, Authorize.Any {}
-                        public class Authentication{public interface Any{}}
-                        public class Authenticate{public interface Any{}}
-                        public class Authorize{public interface Any{}}
-   public class bin    :Binary.Any{} public class Binary{public interface Any{}}
-   public class biz    :Business.Any, Corporate.Any{} public class Business{public interface Any{}}
-   public class @bool  :Boolean.Any{} public class Boolean{public interface Any{}}
-   public class buf    :Buffer.Any {} public class Buffer{public interface Any{}} // https://msdn.microsoft.com/en-us/library/windows/desktop/ms740149(v=vs.85).aspx
-   public class calc   :Calculation.Any{} public class Calculation{public interface Any{}}
-   public class cmd    :Command.Any{} public class Command{public interface Any{}}
-   public class cmp    :Compare.Any{} public class Compare{public interface Any{}}
-   public class col    :Column.Any{} public class Column{public interface Any{}}
-   public class comm   :Communication.Any{} public class Communication{public interface Any{}}
-   public class conn   :Connection.Any{} public class Connection{public interface Any{}}
-   public class corp   :Corporate.Any, Business.Any{} public class Corporate{public interface Any{}}
-   public class cr     :Create.Any{} public class Create{public interface Any{}}
-   public class cs     :CustomerService.Any, CSharp.Any{} public class CustomerService{public interface Any{}}
-                                                          public class CSharp{public interface Any{}}
-   public class cust   :Customer.Any{} public class Customer{public interface Any{}}
-   public class cx     :Context.Any{} public class Context{public interface Any{}}
-   public class db     :Database.Any{} public class Database{public interface Any{}}
-   public class dbg    :Debug.Any{} public class Debug{public interface Any{}}
-   public class dec    :Decrement.Any{} public class Decrement{public interface Any{}}
-   public class decl   :Declaration.Any{} public class Declaration{public interface Any{}}
-   public class def    :Definition.Any, Define.Any{} public class Definition{public interface Any{}}
-                                                     public class Define{public interface Any{}}
-   public class del    :Delete.Any, Remove.Any, Drop.Any{} public class Delete{public interface Any{}}
-   public class dev    :Development.Any, Developer.Any{} public class Development{public interface Any{}}
-                                                         public class Developer{public interface Any{}}
-   public class df     :Default.Any{} public class Default{public interface Any{}}
-   public class dir    :Directory.Any, Folder.Any{} public class Directory{public interface Any{}}
-                                                    public class Folder{public interface Any{}}
-   public class drop   :Drop.Any, Delete.Any, Remove.Any{} public class Drop{public interface Any{}}
-   public class drv    :Driver.Any, Drive.Any{} public class Driver{public interface Any{}}
-                                                public class Drive{public interface Any{}}
-   public class dry    :DontRepeatYourself.Any{} public class DontRepeatYourself{public interface Any{}}
-   public class ds     :DataSet.Any, RowSet.Any{} public class DataSet{public interface Any{}}
-   public class dst    :Destination.Any{} public class Destination{public interface Any{}}
-   public class dt     :DateTime.Any{} public class DateTime{public interface Any{}}
-   public class dup    :Duplicate.Any, Copy.Any{} public class Duplicate{public interface Any{}}
-                                                  public class Copy{public interface Any{}}
-   public class emp    :Employee.Any{} public class Employee{public interface Any{}}
-   public class env    :Environment.Any{} public class Environment{public interface Any{}}
-   public class err    :Error.Any, Exception.Any{} public class Error{public interface Any{}}
-                                                   public class Exception{public interface Any{}}
-   public class expr   :Expression.Any{} public class Expression{public interface Any{}}
-   public class ext    :Extension.Any, External.Any, Exterior.Any{}
-                        public class Extension{public interface Any{}}
-                        public class External{public interface Any{}}
-                        public class Exterior{public interface Any{}}
-   public class eval   :Evaluate.Any{} public class Evaluate{public interface Any{}}
-   public class fk     :ForeignKey.Any{} public class ForeignKey{public interface Any{}}
-   public class fld    :Field.Any{} public class Field{public interface Any{}}
-   public class flt    :Filter.Any{} public class Filter{public interface Any{}}
-   public class fn     :Function.Any{} public class Function{public interface Any{}}
-   public class frac   :Fractional.Any{} public class Fractional{public interface Any{}}
-                                         public class Decimal{public interface Any{}}
-   public class grp    :Group.Any{} public class Group{public interface Any{}}
-   public class gui    :GraphicUserInterface.Any, UserInterface.Any{} public class GraphicUserInterface{public interface Any{}}
-   public class inc    :Increment.Any{} public class Increment{public interface Any{}}
-   public class incl   :Include.Any{} public class Include{public interface Any{}}
-   public class @int   :Integer.Any, Internal.Any, Interior.Any{}
-                        public class Integer{public interface Any{}}
-                        public class Internal{public interface Any{}}
-                        public class Interior{public interface Any{}}
-   public class imp    :Implementation.Any, Implement.Any {} public class Implementation{public interface Any{}}
-                                                             public class Implement{public interface Any{}}
-   public class ix     :Index.Any{} public class Index{public interface Any{}}
-   public class len    :Length.Any, Size.Any{} public class Length{public interface Any{}}
-                                              public class Size{public interface Any{}}
-   public class lic    :License.Any{} public class License{public interface Any{}}
-   public class mgr    :Manager.Any{} public class Manager{public interface Any{}}
-   public class mrg    :Merge.Any{} public class Merge{public interface Any{}}
-   public class msg    :Message.Any{} public class Message{public interface Any{}}
-   public class mx     :Matrix.Any{} public class Matrix{public interface Any{}}
-   public class mk     :Make.Any, Create.Any{} public class Make{public interface Any{}}
-   public class mv     :Move.Any, Transfer.Any{} public class Move{public interface Any{}}
-                                                 public class Transfer{public interface Any{}}
-   public class net    :Network.Any{} public class Network{public interface Any{}}
-   public class num    :Number.Any{} public class Number{public interface Any{}}
-   public class obj    :Object.Any{} public class Object{public interface Any{}}
-   public class ord    :Order.Any{} public class Order{public interface Any{}}
-   public class orig   :Original.Any, Source.Any{} public class Original{public interface Any{}}
-   public class pfx    :Prefix.Any{} public class Prefix{public interface Any{}}
-   public class pk     :PrimaryKey.Any{} public class PrimaryKey{public interface Any{}}
-   public class pkg    :Package.Any{} public class Package{public interface Any{}}
-   public class pos    :Position.Any{} public class Position{public interface Any{}}
-   public class prec   :Precision.Any{} public class Precision{public interface Any{}}
-   public class pref   :Preference.Any, Prefer.Any{} public class Preference{public interface Any{}}
-                                                     public class Prefer{public interface Any{}}
-   public class prep   :Prepare.Any, Preparation.Any{} public class Prepare{public interface Any{}}
-                                                       public class Preparation{public interface Any{}}
-   public class prev   :Previous.Any{} public class Previous{public interface Any{}}
-   public class prg    :Program.Any{} public class Program{public interface Any{}}
-   public class prod   :Production.Any{} public class Production{public interface Any{}}
-   public class pvt    :Private.Any{} public class Private{public interface Any{}}
-   public class pwd    :Password.Any{} public class Password{public interface Any{}}
-   public class qry    :Query.Any{} public class Query{public interface Any{}}
-   public class rcpt   :Recipient.Any{} public class Recipient{public interface Any{}}
-   public class rd     :Reader.Any, Read.Any{} public class Reader{public interface Any{}}
-                                               public class Read{public interface Any{}}
-   public class rec    :Record.Any{} public class Record{public interface Any{}}
-   public class recv   :Receive.Any{} public class Receive{public interface Any{}} // https://msdn.microsoft.com/en-us/library/windows/desktop/ms740121(v=vs.85).aspx
-   public class rep    :Representative.Any{} public class Representative{public interface Any{}}
-   public class req    :Require.Any, Requisition.Any {} public class Require{public interface Any{}} // http://dictionary.reference.com/browse/req-
-                                                        public class Requisition{public interface Any{}}
-   public class res    :Result.Any{} public class Result{public interface Any{}}
-   public class ret    :Return.Any{} public class Return{public interface Any{}}
-   public class rm     :Remove.Any, Delete.Any, Drop.Any{} public class Remove{public interface Any{}}
-   public class rs     :RowSet.Any, DataSet.Any{} public class RowSet{public interface Any{}}
-   public class rsp    :Response.Any{} public class Response{public interface Any{}}
-   public class rq     :Request.Any{} public class Request{public interface Any{}} // https://en.wikipedia.org/wiki/Interrupt_request_(PC_architecture)
-   public class sep    :Separator.Any, Delimiter.Any{} public class Separator{public interface Any{}}
-                                                       public class Delimiter{public interface Any{}}
-   public class seq    :Sequence.Any{} public class Sequence{public interface Any{}}
-   public class sec    :Security.Any, Secure.Any {} public class Security{public interface Any{}}
-                                                    public class Secure{public interface Any{}}
-   public class sfx    :Suffix.Any{} public class Suffix{public interface Any{}}
-   public class sft    :Software.Any{} public class Software{public interface Any{}}
-   public class sock   :Socket.Any {} public class Socket{public interface Any{}}
-   public class src    :Source.Any, Original.Any{} public class Source{public interface Any{}}
-   public class stg    :Staging.Any{} public class Staging{public interface Any{}}
-   public class stmt   :Statement.Any{} public class Statement{public interface Any{}}
-   public class str    :String.Any{} public class String{public interface Any{}}
-   public class subj   :Subject.Any{} public class Subject{public interface Any{}}
-   public class sup    :Supersede.Any, Override.Any {} public class Supersede{public interface Any{}}
-                                                       public class Override{public interface Any{}}
-   public class svc    :Service.Any{} public class Service{public interface Any{}}
-   public class svr    :Server.Any{} public class Server{public interface Any{}} // https://en.wikipedia.org/wiki/SVR#Technology
-   public class sync   :Synchronize.Any{} public class Synchronize{public interface Any{}}
-   public class synced :Synchronized.Any{} public class Synchronized{public interface Any{}}
-   public class tbl    :Table.Any{} public class Table{public interface Any{}}
-   public class trig   :Trigger.Any{} public class Trigger{public interface Any{}}
-   public class trk    :Track.Any, Tracking.Any{} public class Track{public interface Any{}}
-                                                  public class Tracking{public interface Any{}}
-   public class tran   :Transaction.Any{} public class Transaction{public interface Any{}}
-   public class tx     :Transmission.Any{} public class Transmission{public interface Any{}}
-   public class txt    :Text.Any{} public class Text{public interface Any{}}
-   public class ui     :UserInterface.Any, GraphicUserInterface.Any{} public class UserInterface{public interface Any{}}
-   public class usr    :User.Any{} public class User{public interface Any{}}
-   public class upd    :Update.Any{} public class Update{public interface Any{}}
-   public class uq     :Unique.Any{} public class Unique{public interface Any{}}
-   public class val    :Value.Any{} public class Value{public interface Any{}}
-   public class vb     :VisualBasic.Any{} public class VisualBasic{public interface Any{}}
-   public class vec    :Vector.Any{} public class Vector{public interface Any{}}
-   public class vw     :View.Any{} public class View{public interface Any{}}
+   public interface _      :Parent, AsPfx<Private>, AsSfx<Plural> {}
+                           public interface Parent{}
+                           public interface Plural{}
+   public interface abbr   :Abbreviation{} public interface Abbreviation{}
+   public interface acc    :Account, Accounting {} public interface Account{}
+                                                   public interface Accounting{} // http://www.thefreedictionary.com/Accounting
+   public interface agg    :Aggregate{} public interface Aggregate{}
+   public interface app    :Application{} public interface Application{}
+   public interface auth   :Authentication, Authenticate, Authorize {}
+                           public interface Authentication{}
+                           public interface Authenticate{}
+                           public interface Authorize{}
+   public interface bin    :Binary{} public interface Binary{}
+   public interface biz    :Business, Corporate{} public interface Business{}
+   public interface @bool  :Boolean{} public interface Boolean{}
+   public interface buf    :Buffer {} public interface Buffer{} // https://msdn.microsoft.com/en-us/library/windows/desktop/ms740149(v=vs.85).aspx
+   public interface calc   :Calculation{} public interface Calculation{}
+   public interface cmd    :Command{} public interface Command{}
+   public interface cmp    :Compare{} public interface Compare{}
+   public interface col    :Column{} public interface Column{}
+   public interface comm   :Communication{} public interface Communication{}
+   public interface conn   :Connection{} public interface Connection{}
+   public interface corp   :Corporate, Business{} public interface Corporate{}
+   public interface cr     :Create{} public interface Create{}
+   public interface cs     :CustomerService, CSharp{} public interface CustomerService{}
+                                                      public interface CSharp{}
+   public interface cust   :Customer{} public interface Customer{}
+   public interface cx     :Context{} public interface Context{}
+   public interface db     :Database{} public interface Database{}
+   public interface dbg    :Debug{} public interface Debug{}
+   public interface dec    :Decrement{} public interface Decrement{}
+   public interface decl   :Declaration{} public interface Declaration{}
+   public interface def    :Definition, Define{} public interface Definition{}
+                                                 public interface Define{}
+   public interface del    :Delete, Remove, Drop{} public interface Delete{}
+   public interface dev    :Development, Developer{} public interface Development{}
+                                                     public interface Developer{}
+   public interface df     :Default{} public interface Default{}
+   public interface dir    :Directory, Folder{} public interface Directory{}
+                                                public interface Folder{}
+   public interface doc    :Document{} public interface Document{}
+   public interface drop   :Drop, Delete, Remove{} public interface Drop{}
+   public interface drv    :Driver, Drive{} public interface Driver{}
+                                            public interface Drive{}
+   public interface dry    :DontRepeatYourself{} public interface DontRepeatYourself{}
+   public interface ds     :DataSet, RowSet{} public interface DataSet{}
+   public interface dst    :Destination{} public interface Destination{}
+   public interface dt     :DateTime{} public interface DateTime{}
+   public interface dup    :Duplicate, Copy{} public interface Duplicate{}
+                                              public interface Copy{}
+   public interface emp    :Employee{} public interface Employee{}
+   public interface env    :Environment{} public interface Environment{}
+   public interface err    :Error, Exception{} public interface Error{}
+                                               public interface Exception{}
+   public interface ev     :Event{} public interface Event{}
+   public interface expr   :Expression{} public interface Expression{}
+   public interface ext    :Extension, External, Exterior{}
+                           public interface Extension{}
+                           public interface External{}
+                           public interface Exterior{}
+   public interface eval   :Evaluate{} public interface Evaluate{}
+   public interface fk     :ForeignKey{} public interface ForeignKey{}
+   public interface fld    :Field{} public interface Field{}
+   public interface flt    :Filter{} public interface Filter{}
+   public interface fn     :Function{} public interface Function{}
+   public interface frac   :Fractional{} public interface Fractional{}
+                                         public interface Decimal{}
+   public interface gen    :Generate{} public interface Generate{}
+   public interface grp    :Group{} public interface Group{}
+   public interface gui    :GraphicUserInterface, UserInterface{} public interface GraphicUserInterface{}
+   public interface ifc    :Interface{} public interface Interface{}
+   public interface imp    :Implementation, Implement {} public interface Implementation{}
+                                                         public interface Implement{}
+   public interface inc    :Increment{} public interface Increment{}
+   public interface incl   :Include{} public interface Include{}
+   public interface @in    :Input{} public interface Input{}
+   public interface @int   :Integer, Internal, Interior{}
+                           public interface Integer{}
+                           public interface Internal{}
+                           public interface Interior{}
+   public interface ix     :Index{} public interface Index{}
+   public interface len    :Length, Size{} public interface Length{}
+                                           public interface Size{}
+   public interface lic    :License{} public interface License{}
+   public interface mgr    :Manager{} public interface Manager{}
+   public interface mrg    :Merge{} public interface Merge{}
+   public interface msg    :Message{} public interface Message{}
+   public interface mx     :Matrix{} public interface Matrix{}
+   public interface mk     :Make, Create{} public interface Make{}
+   public interface mv     :Move, Transfer{} public interface Move{}
+                                             public interface Transfer{}
+   public interface net    :Network{} public interface Network{}
+   public interface num    :Number{} public interface Number{}
+   public interface obj    :Object{} public interface Object{}
+   public interface op     :Operation, Operator {} public interface Operation{}
+                                                   public interface Operator{}
+   public interface ord    :Order{} public interface Order{}
+   public interface orig   :Original, Source{} public interface Original{}
+   public interface @out   :Output{} public interface Output{}
+   public interface pfx    :Prefix{} public interface Prefix{}
+   public interface pk     :PrimaryKey{} public interface PrimaryKey{}
+   public interface pkg    :Package{} public interface Package{}
+   public interface pos    :Position{} public interface Position{}
+   public interface prec   :Precision{} public interface Precision{}
+   public interface pref   :Preference, Prefer{} public interface Preference{}
+                                                 public interface Prefer{}
+   public interface prep   :Prepare, Preparation{} public interface Prepare{}
+                                                   public interface Preparation{}
+   public interface prev   :Previous{} public interface Previous{}
+   public interface prg    :Program{} public interface Program{}
+   public interface proc   :Process, Procedure {} public interface Process{}
+                                                  public interface Procedure{}
+   public interface prod   :Production{} public interface Production{}
+   public interface ptr    :Pointer{} public interface Pointer{}
+   public interface pvt    :Private{} public interface Private{}
+   public interface pwd    :Password{} public interface Password{}
+   public interface qry    :Query{} public interface Query{}
+   public interface rcpt   :Recipient{} public interface Recipient{}
+   public interface rd     :Reader, Read{} public interface Reader{}
+                                           public interface Read{}
+   public interface rec    :Record{} public interface Record{}
+   public interface recv   :Receive{} public interface Receive{} // https://msdn.microsoft.com/en-us/library/windows/desktop/ms740121(v=vs.85).aspx
+   public interface @ref   :Reference{} public interface Reference{}
+   public interface rel    :Relation{} public interface Relation{}
+   public interface rep    :Representative{} public interface Representative{}
+   public interface req    :Require, Requisition {} public interface Require{} // http://dictionary.reference.com/browse/req-
+                                                    public interface Requisition{}
+   public interface res    :Result{} public interface Result{}
+   public interface ret    :Return{} public interface Return{}
+   public interface rm     :Remove, Delete, Drop{} public interface Remove{}
+   public interface rs     :RowSet, DataSet{} public interface RowSet{}
+   public interface rsp    :Response{} public interface Response{}
+   public interface rq     :Request{} public interface Request{} // https://en.wikipedia.org/wiki/Interrupt_request_(PC_architecture)
+   public interface sep    :Separator, Delimiter{} public interface Separator{}
+                                                   public interface Delimiter{}
+   public interface seq    :Sequence{} public interface Sequence{}
+   public interface sec    :Security, Secure {} public interface Security{}
+                                                public interface Secure{}
+   public interface sfx    :Suffix{} public interface Suffix{}
+   public interface sft    :Software{} public interface Software{}
+   public interface sock   :Socket {} public interface Socket{}
+   public interface src    :Source, Original{} public interface Source{}
+   public interface stg    :Staging{} public interface Staging{}
+   public interface stmt   :Statement{} public interface Statement{}
+   public interface str    :String{} public interface String{}
+   public interface subj   :Subject{} public interface Subject{}
+   public interface sup    :Supersede, Override {} public interface Supersede{}
+                                                   public interface Override{}
+   public interface svc    :Service{} public interface Service{}
+   public interface svr    :Server{} public interface Server{} // https://en.wikipedia.org/wiki/SVR#Technology
+   public interface syn    :Synonym{} public interface Synonym{}
+   public interface sync   :Synchronize{} public interface Synchronize{}
+   public interface synced :Synchronized{} public interface Synchronized{}
+   public interface sys    :System{} public interface System{}
+   public interface tbl    :Table{} public interface Table{}
+   public interface trig   :Trigger{} public interface Trigger{}
+   public interface trk    :Track, Tracking{} public interface Track{}
+                                              public interface Tracking{}
+   public interface tran   :Transaction{} public interface Transaction{}
+   public interface tx     :Transmission{} public interface Transmission{}
+   public interface txt    :Text{} public interface Text{}
+   public interface ui     :UserInterface, GraphicUserInterface{} public interface UserInterface{}
+   public interface usr    :User{} public interface User{}
+   public interface upd    :Update{} public interface Update{}
+   public interface uq     :Unique{} public interface Unique{}
+   public interface val    :Value{} public interface Value{}
+   public interface vb     :VisualBasic{} public interface VisualBasic{}
+   public interface vec    :Vector{} public interface Vector{}
+   public interface vw     :View{} public interface View{}
 
-   public interface AsPrefix<T>{}
-   public interface AsSuffix<T>{}
+   public interface AsPfx<T>{}
+   public interface AsSfx<T>{}
 }

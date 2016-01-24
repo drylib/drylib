@@ -3,7 +3,7 @@
 using System;
 
 namespace DRYLib.Core {
-   public class Err: Exception, Abbr.Error.Any{
+   public class Err: Exception, Abbr.err{
       public Err add(object key, object val){
          Data.Add(key, val);
          return this;
