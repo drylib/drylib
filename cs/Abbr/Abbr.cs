@@ -1,9 +1,11 @@
 ﻿// Copyright (c) 2016 drylib.com - All rights reserved. Terms are in License.cs
 // You are NOT ALLOWED to modify and/or use this code without author permission
 namespace DRYLib.Abbr{
-   public interface _      :Parent, AsPfx<Private>, AsSfx<Plural> {}
+   public interface _      :Parent, AsPfx<Private>, AsSfx<Plural>, AsSfx<List>, AsMid<Or> {}
                            public interface Parent{}
                            public interface Plural{}
+                           public interface List{}
+                           public interface Or{}
    public interface abbr   :Abbreviation{} public interface Abbreviation{}
    public interface acc    :Account, Accounting {} public interface Account{}
                                                    public interface Accounting{} // http://www.thefreedictionary.com/Accounting
@@ -14,7 +16,8 @@ namespace DRYLib.Abbr{
                            public interface Authenticate{}
                            public interface Authorize{}
    public interface bin    :Binary{} public interface Binary{}
-   public interface biz    :Business, Corporate{} public interface Business{}
+   public interface biz    :Business, Corporate, Company{} public interface Business{}
+                                                           public interface Company{}
    public interface @bool  :Boolean{} public interface Boolean{}
    public interface buf    :Buffer {} public interface Buffer{} // https://msdn.microsoft.com/en-us/library/windows/desktop/ms740149(v=vs.85).aspx
    public interface calc   :Calculation{} public interface Calculation{}
@@ -62,6 +65,7 @@ namespace DRYLib.Abbr{
                            public interface External{}
                            public interface Exterior{}
    public interface eval   :Evaluate{} public interface Evaluate{}
+   public interface fin    :Financial{} public interface Financial{}
    public interface fk     :ForeignKey{} public interface ForeignKey{}
    public interface fld    :Field{} public interface Field{}
    public interface flt    :Filter{} public interface Filter{}
@@ -69,6 +73,7 @@ namespace DRYLib.Abbr{
    public interface frac   :Fractional{} public interface Fractional{}
                                          public interface Decimal{}
    public interface gen    :Generate{} public interface Generate{}
+   public interface gov    :Government{} public interface Government{}
    public interface grp    :Group{} public interface Group{}
    public interface gui    :GraphicUserInterface, UserInterface{} public interface GraphicUserInterface{}
    public interface ifc    :Interface{} public interface Interface{}
@@ -85,6 +90,7 @@ namespace DRYLib.Abbr{
    public interface len    :Length, Size{} public interface Length{}
                                            public interface Size{}
    public interface lic    :License{} public interface License{}
+   public interface mid    :Middle{} public interface Middle{}
    public interface mgr    :Manager{} public interface Manager{}
    public interface mrg    :Merge{} public interface Merge{}
    public interface msg    :Message{} public interface Message{}
@@ -173,4 +179,5 @@ namespace DRYLib.Abbr{
 
    public interface AsPfx<T>{}
    public interface AsSfx<T>{}
+   public interface AsMid<T>{}
 }

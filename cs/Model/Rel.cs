@@ -2,15 +2,29 @@
 // You are NOT ALLOWED to modify and/or use this code without author permission
 namespace DRYLib.Model.Rel {
 using Abbr;
-   public interface Any<T>: rel {}
+using Domain = Rel;
+   public interface Any: rel {}
+   public interface Any<T>: Any {}
 
-   public interface Has<T> {}
-   public interface Syn<T>: syn {}
-   public interface Uses<T> {}
-   public interface Affects<T> {}
-   public interface Trig<T>: trig {}
-   public interface Gen<T>: gen {}
-   public interface Is<T> {}
-   public interface Begins<T> {}
-   public interface Ends<T> {}
+   public interface Is<T>: Any<T> {}
+   public interface Has<T>: Any<T> {}
+   public interface With<T>: Any<T> {}
+   public interface Of: Any {} public interface Of<T>: Of, Any<T> {}
+   public interface From: Any {} public interface From<T>: From, Any<T> {}
+   public interface To: Any {} public interface To<T>: To, Any<T> {}
+   public interface Mutual<T1,T2> {}
+   public interface Mutual<T1,T2,T3> {}
+   public interface Mutual<T1,T2,T3,T4> {}
+
+   public interface Syn<T>: Any<T>, syn {}
+
+   public interface Uses<T>: Any<T> {}
+   public interface Affects<T>: Any<T> {}
+   public interface Trig<T>: Any<T>, trig {}
+   public interface Gen<T>: Any<T>, gen {}
+   public interface Begins<T>: Any<T> {}
+   public interface Ends<T>: Any<T> {}
+
+   public interface Goes<From,To>: Any where From: Domain.From where To: Domain.To {}
+   public interface Must<T>: Any<T> {}
 }
