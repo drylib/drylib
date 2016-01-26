@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DRYLib.Core.Ext;
+using DRY.Core.Ext;
 
-namespace DRYLib.Demo {
+namespace DRY.Demo {
    [TestClass]
    public class Tests {
       enum Fruit {Orange, Banana, Raspberry, Apple, Persimmon}

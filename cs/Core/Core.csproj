@@ -7,8 +7,8 @@
     <ProjectGuid>{067D06B2-53A9-4A44-B507-A35F97484D3E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DRYLib.Core</RootNamespace>
-    <AssemblyName>DRYLib.Core</AssemblyName>
+    <RootNamespace>DRY.Core</RootNamespace>
+    <AssemblyName>DRY.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -7,9 +7,9 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 //using System.Web.Mvc.Ajax;
-using DRYLib.Core;
+using DRY.Core;
 
-namespace DRYLib.Web{
+namespace DRY.Web{
    public class Hit{
       public Guid Id { get; set; }
       public Guid UserId { get; set; }

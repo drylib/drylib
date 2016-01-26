@@ -3,12 +3,12 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using DRYLib.Core;
-using DRYLib.Core.Ext;
+using DRY.Core;
+using DRY.Core.Ext;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace DRYLib.Db {
+namespace DRY.Db {
    public class Conn: Disposable<Conn, SqlConnection> {
       public static implicit operator bool(Conn s) { return s.orig() != null && s.orig().State != ConnectionState.Open; }
       public Conn open() {

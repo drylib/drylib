@@ -1,6 +1,6 @@
 ﻿// Copyright (c) 2016 drylib.com - All rights reserved. Terms are in License.cs
 // You are NOT ALLOWED to modify and/or use this code without author permission
-namespace DRYLib.Model.Rel {
+namespace DRY.Model.Rel {
 using Abbr;
 using Domain = Rel;
    public interface Any: rel {}

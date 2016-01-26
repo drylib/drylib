@@ -2,7 +2,7 @@
 // You are NOT ALLOWED to modify and/or use this code without author permission
 using System;
 
-namespace DRYLib.Core {
+namespace DRY.Core {
    public class Inside<Me, Host>
       where Me : Inside<Me, Host>
       where Host : class

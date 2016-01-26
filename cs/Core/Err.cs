@@ -2,7 +2,7 @@
 // You are NOT ALLOWED to modify and/or use this code without author permission
 using System;
 
-namespace DRYLib.Core {
+namespace DRY.Core {
    public class Err: Exception, Abbr.err{
       public Err add(object key, object val){
          Data.Add(key, val);

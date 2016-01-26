@@ -1,4 +1,4 @@
-﻿namespace DRYLib{public class License{public string terms{get{return @"
+﻿namespace DRY{public class License{public string terms{get{return @"
 *******************************************************************************
         Copyright (c) 2015,2016 drylib.com - All rights reserved.
 

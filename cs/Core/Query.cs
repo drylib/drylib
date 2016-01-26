@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace DRYLib.Core {
+namespace DRY.Core {
    public class Query<T>: Wrap<Query<T>,IQueryable<T>>, IQueryable<T> {
       public Query(IQueryable<T> s) {setOrig(s);}
       public Query(IEnumerable<T> s):this(s.AsQueryable()){}

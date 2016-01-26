@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DRYLib.Time {
+namespace DRY.Time {
    public static class Ext {
    }
 }

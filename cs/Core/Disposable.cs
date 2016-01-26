@@ -2,7 +2,7 @@
 // You are NOT ALLOWED to modify and/or use this code without author permission
 using System;
 
-namespace DRYLib.Core{
+namespace DRY.Core{
    public class Disposable<Me,Orig>: IDisposable
       where Me : Disposable<Me,Orig>
       where Orig : class, IDisposable

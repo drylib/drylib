@@ -7,8 +7,8 @@
     <ProjectGuid>{9751F53E-83C3-4F32-B4FF-158590197946}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DRYLib.Web</RootNamespace>
-    <AssemblyName>DRYLib.Web</AssemblyName>
+    <RootNamespace>DRY.Web</RootNamespace>
+    <AssemblyName>DRY.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

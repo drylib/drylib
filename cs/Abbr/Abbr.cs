@@ -1,7 +1,7 @@
 ﻿// Copyright (c) 2016 drylib.com - All rights reserved. Terms are in License.cs
 // You are NOT ALLOWED to modify and/or use this code without author permission
-namespace DRYLib.Abbr{
-   public interface _      :Parent, AsPfx<Private>, AsSfx<Plural>, AsSfx<List>, AsMid<Or> {}
+namespace DRY.Abbr{
+   public interface _      :Parent, As.Pfx<Private>, As.Sfx<Plural>, As.Sfx<List>, As.Mid<Or> {}
                            public interface Parent{}
                            public interface Plural{}
                            public interface List{}
@@ -177,7 +177,9 @@ namespace DRYLib.Abbr{
    public interface vec    :Vector{} public interface Vector{}
    public interface vw     :View{} public interface View{}
 
-   public interface AsPfx<T>{}
-   public interface AsSfx<T>{}
-   public interface AsMid<T>{}
+   namespace As {
+      public interface Pfx<T>{}
+      public interface Sfx<T>{}
+      public interface Mid<T>{}
+   }
 }

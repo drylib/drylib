@@ -2,7 +2,7 @@
 // You are NOT ALLOWED to modify and/or use this code without author permission
 using System;
 
-namespace DRYLib.Core {
+namespace DRY.Core {
    namespace Ext {
       public static class ObjExt {
          public static bool In<T>(this T @this, params T[] args){

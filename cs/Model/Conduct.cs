@@ -1,6 +1,6 @@
 ﻿// Copyright (c) 2016 drylib.com - All rights reserved. Terms are in License.cs
 // You are NOT ALLOWED to modify and/or use this code without author permission
-namespace DRYLib.Model.Conduct{
+namespace DRY.Model.Conduct{
 using Rel;using Abbr;using Domain=Conduct;
 
    public interface Any{}
