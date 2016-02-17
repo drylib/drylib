@@ -33,7 +33,9 @@
  If one machine is used or serviced by multiple human users then daily license
  fee for that machine is multiplied by number of users.
  If N machines are used by M users then daily fee is multiplied by M and 
- multiplied by N. M or N can never be considered less than 1.
+ multiplied by N. M or N shall never be considered less than 1 or more than 50.
+ For example, if a website that is located on one machine is accessed by
+ millions of users, license fee is required only for the first 50 users.
 
  After sending 2 years worth of daily license fees, owner of sender account is
  automatically granted perpetual license for as many machines and users as paid
