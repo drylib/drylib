@@ -1,46 +1,50 @@
-select'************************************************************************
-        Copyright (c) 2015 drylib.com - All rights reserved.
+select'
+*******************************************************************************
+        Copyright (c) 2015,2016 drylib.com - All rights reserved.
 
-    Copyright Holder (Author) contact info for licensing:
-      email author@drylib.com with word "license" in email subject line
+    Copyright Holder (Author) addresses for payments and messages:
+      Bitcoin payment and messages 17pYSowGmou3Qc9LhZyjXHhwpWLrmjB9MC
+      Ethereum payment 0xb5ddeb3a54280c494a122b107b2e9f7d0e01c11a
 
     Contact info for questions and support:
       email author@drylib.com with word "support" in email subject line
 
  You are NOT ALLOWED to use or modify any part of this Software Library without
- email message from author@drylib.com (the Email) that explicitly grants
- permission to you. However you are allowed to read the source code and
- execute in non-production environment for software evaluation purpose during
- 30 days time period with interval between evaluations not less than 90 days.
+ confirmed payment in Bitcoin or Ethereum networks to one of mentioned above
+ Author addresses with fee schedule described below.
  
- The Email must be from author@drylib.com and must state scope of granted
- permissions and target. Scope identifies what you can do, for example,
- make API calls, modify source code, sell as part of your product, etc.
- Target identifies who got that permission, for example, your name and email
- address or name of your business or your website or your crypto public key.
+ License is automatically GRANTED after network confirmation of transaction
+ with license fees becomes publicly visible on one of the following websites:
+                              for Bitcoin payments: https://blockchain.info
+                              for Ethereum payments: https://www.etherchain.org
+ 
+ You must retain control of your Bitcoin or Ethereum account for as long as you
+ use this library. If you cannot prove ownership of your Bitcoin or Ethereum
+ account at any time, you must consider license revoked and must pay license
+ fees from another account.
 
- The Email must have Authentication-Results header that contains all of the
- following substrings:
-               1) spf=pass
-               2) smtp.mail=author@drylib.com
-               3) dkim=pass header.i=@drylib.com
- and DKIM-Signature header that contains all of the following substrings:
-               4) a=rsa-sha256;
-               5) d=drylib.com;
-               6) s=google;
-               7) h=mime-version:date:message-id:subject:from:to:content-type;
+ Any execution of any part of this library for any purpose is considered usage.
+ That includes, for example, execution for evaluation or development purposes.
+ Reading the source code is not considered usage.
 
- If any of these 7 items is missing you MAY NOT consider permission granted.
+ License costs 0.0014 BTC (or 0.09 ETH) per day per human user per machine.
+ If one user configures that software to run on multiple machines then
+ daily license fee is multiplied by number of machines.
+ If one machine is used or serviced by multiple human users then daily license
+ fee for that machine is multiplied by number of users.
+ If N machines are used by M users then daily fee is multiplied by M and 
+ multiplied by N. M or N can never be considered less than 1.
 
- You must retain evidence of granted permission for as long as you use this
- Software Library.
+ After sending 2 years worth of daily license fees, owner of sender account is
+ automatically granted perpetual license for as many machines and users as paid
+ for during 2 years.
 
- For explanation of Authentication-Results and DKIM-Signature headers see:
- http://en.wikipedia.org/wiki/Email_authentication#Authentication-Results
- http://en.wikipedia.org/wiki/DomainKeys_Identified_Mail#How_it_works
- http://tools.ietf.org/html/rfc7001#ref-DKIM
-    
+ It is allowed to prepay for future usage.
+ It is not allowed to pay for past usage.
 
+ License costs may change at any time and without notice, however they shall
+ affect only future fees and shall never affect terms of prepaid license.
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
