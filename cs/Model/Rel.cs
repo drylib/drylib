@@ -27,4 +27,10 @@ using Domain = Rel;
 
    public interface Goes<From,To>: Any where From: Domain.From where To: Domain.To {}
    public interface Must<T>: Any<T> {}
+
+   public interface Attitude<Which,Towards>: Any {}
+   public interface Prescribes<T>: Any {}
+
+   public interface Primary<T>: Any {}
+   public interface Secondary<T>: Any {}
 }
