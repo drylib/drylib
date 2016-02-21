@@ -13,8 +13,9 @@ select'
  confirmed payment in Bitcoin or Ethereum networks to one of mentioned above
  Author addresses with fee schedule described below.
  
- License is automatically GRANTED after network confirmation of transaction
- with license fees becomes publicly visible on one of the following websites:
+ License is automatically GRANTED upon network confirmation of transaction
+ with license fees. Transactions usually become publicly visible on one of the
+ following websites:
                               for Bitcoin payments: https://blockchain.info
                               for Ethereum payments: https://www.etherchain.org
  
@@ -25,7 +26,7 @@ select'
 
  Any execution of any part of this library for any purpose is considered usage.
  That includes, for example, execution for evaluation or development purposes.
- Reading the source code is not considered usage.
+ Reading the source code (or compiling for reading) is not considered usage.
 
  License costs 0.0014 BTC (or 0.09 ETH) per day per human user per machine.
  If one user configures that software to run on multiple machines then
