@@ -68,13 +68,13 @@ namespace DRY.Abbr{
    public interface fin    :Financial{} public interface Financial{}
    public interface fk     :ForeignKey{} public interface ForeignKey{}
    public interface fld    :Field{} public interface Field{}
-   public interface flt    :Filter{} public interface Filter{}
+   public interface flt    :Filter, Domain.Programming, Domain.Transportation<Flight>{} public interface Filter{} public interface Flight{}
    public interface fn     :Function{} public interface Function{}
    public interface frac   :Fractional{} public interface Fractional{}
                                          public interface Decimal{}
    public interface gen    :Generate{} public interface Generate{}
-   public interface gov    :Government{} public interface Government{}
-   public interface grp    :Group{} public interface Group{}
+   public interface gov    :Government, Domain.Political{} public interface Government{}
+   public interface grp    :Group, Domain.Programming{} public interface Group{}
    public interface gui    :GraphicUserInterface, UserInterface{} public interface GraphicUserInterface{}
    public interface ifc    :Interface{} public interface Interface{}
    public interface imp    :Implementation, Implement {} public interface Implementation{}
@@ -90,7 +90,7 @@ namespace DRY.Abbr{
    public interface len    :Length, Size{} public interface Length{}
                                            public interface Size{}
    public interface lic    :License{} public interface License{}
-   public interface mid    :Middle{} public interface Middle{}
+   public interface mid    :Middle, Domain.any{} public interface Middle{}
    public interface mgr    :Manager{} public interface Manager{}
    public interface mrg    :Merge{} public interface Merge{}
    public interface msg    :Message{} public interface Message{}
@@ -109,17 +109,19 @@ namespace DRY.Abbr{
    public interface pfx    :Prefix{} public interface Prefix{}
    public interface pk     :PrimaryKey{} public interface PrimaryKey{}
    public interface pkg    :Package{} public interface Package{}
+   public interface pmt    :Payment{} public interface Payment{}
    public interface pos    :Position{} public interface Position{}
    public interface prec   :Precision{} public interface Precision{}
    public interface pref   :Preference, Prefer{} public interface Preference{}
                                                  public interface Prefer{}
    public interface prep   :Prepare, Preparation{} public interface Prepare{}
                                                    public interface Preparation{}
-   public interface prev   :Previous{} public interface Previous{}
-   public interface prg    :Program{} public interface Program{}
-   public interface proc   :Process, Procedure {} public interface Process{}
-                                                  public interface Procedure{}
-   public interface prod   :Production{} public interface Production{}
+   public interface prev   :Previous, Domain.any{} public interface Previous{}
+   public interface prg    :Program, Domain.Programming{} public interface Program{}
+   public interface proc   :Process, Procedure, Domain.Programming {}
+                           public interface Process{}
+                           public interface Procedure{}
+   public interface prod   :Production, Domain.Programming{} public interface Production{}
    public interface ptr    :Pointer{} public interface Pointer{}
    public interface pvt    :Private{} public interface Private{}
    public interface pwd    :Password{} public interface Password{}
@@ -129,57 +131,81 @@ namespace DRY.Abbr{
                                            public interface Read{}
    public interface rec    :Record{} public interface Record{}
    public interface recv   :Receive{} public interface Receive{} // https://msdn.microsoft.com/en-us/library/windows/desktop/ms740121(v=vs.85).aspx
-   public interface @ref   :Reference{} public interface Reference{}
-   public interface rel    :Relation{} public interface Relation{}
-   public interface rep    :Representative{} public interface Representative{}
-   public interface req    :Require, Requisition {} public interface Require{} // http://dictionary.reference.com/browse/req-
-                                                    public interface Requisition{}
+   public interface @ref   :Reference, Domain.Programming{} public interface Reference{}
+   public interface rel    :Relation, Domain.Programming{} public interface Relation{}
+   public interface rep    :Representative, Domain.Insurance, Domain.CRM{} public interface Representative{}
+   public interface req    :Require, Requirement, Requisition {}
+                            public interface Require{} // http://dictionary.reference.com/browse/req-
+                            public interface Requirement : Domain.Programming{}
+                            public interface Requisition{}
    public interface res    :Result{} public interface Result{}
-   public interface ret    :Return{} public interface Return{}
-   public interface rm     :Remove, Delete, Drop{} public interface Remove{}
-   public interface rs     :RowSet, DataSet{} public interface RowSet{}
+   public interface ret    :Return, Domain.Programming{} public interface Return{}
+   public interface rm     :Remove, Delete, Drop, Domain.Programming{} public interface Remove{}
+   public interface rs     :RowSet, DataSet, Domain.Programming{} public interface RowSet{}
    public interface rsp    :Response{} public interface Response{}
-   public interface rq     :Request{} public interface Request{} // https://en.wikipedia.org/wiki/Interrupt_request_(PC_architecture)
-   public interface sep    :Separator, Delimiter{} public interface Separator{}
-                                                   public interface Delimiter{}
-   public interface seq    :Sequence{} public interface Sequence{}
-   public interface sec    :Security, Secure {} public interface Security{}
-                                                public interface Secure{}
+   public interface rq     :Request, Domain.Programming{} public interface Request{} // https://en.wikipedia.org/wiki/Interrupt_request_(PC_architecture)
+   public interface sep    :Separator, Delimiter, Domain.Programming{}
+                           public interface Separator{}
+                           public interface Delimiter{}
+   public interface seq    :Sequence, Domain.Programming{} public interface Sequence{}
+   public interface sec    :Security, Secure, Domain.Programming {}
+                           public interface Security{}
+                           public interface Secure{}
    public interface sfx    :Suffix{} public interface Suffix{}
    public interface sft    :Software{} public interface Software{}
    public interface sock   :Socket {} public interface Socket{}
-   public interface src    :Source, Original{} public interface Source{}
+   public interface src    :Source, Original, Domain.Programming{} public interface Source{}
    public interface stg    :Staging{} public interface Staging{}
-   public interface stmt   :Statement{} public interface Statement{}
-   public interface str    :String{} public interface String{}
+   public interface stmt   :Statement, Domain.Accounting, Domain.Banking{}
+      public interface Statement{}
+   public interface str    :String, Domain.Programming{} public interface String{}
    public interface subj   :Subject{} public interface Subject{}
    public interface sup    :Supersede, Override {} public interface Supersede{}
                                                    public interface Override{}
-   public interface svc    :Service{} public interface Service{}
-   public interface svr    :Server{} public interface Server{} // https://en.wikipedia.org/wiki/SVR#Technology
+   public interface svc    :Service, Domain.Programming{} public interface Service{}
+   public interface svr    :Server, Domain.Programming, Domain.Networking{} public interface Server{} // https://en.wikipedia.org/wiki/SVR#Technology
    public interface syn    :Synonym{} public interface Synonym{}
-   public interface sync   :Synchronize{} public interface Synchronize{}
-   public interface synced :Synchronized{} public interface Synchronized{}
-   public interface sys    :System{} public interface System{}
-   public interface tbl    :Table{} public interface Table{}
-   public interface trig   :Trigger{} public interface Trigger{}
+   public interface sync   :Synchronize, Domain.Programming{} public interface Synchronize{}
+   public interface synced :Synchronized, Domain.Programming{} public interface Synchronized{}
+   public interface sys    :System, Domain.Programming{} public interface System{}
+   public interface tbl    :Table, Domain.Programming{} public interface Table{}
+   public interface temp   :Temporary, Domain.Programming, Domain.Networking{} public interface Temporary{}
+   public interface trig   :Trigger, Domain.Programming{} public interface Trigger{}
    public interface trk    :Track, Tracking{} public interface Track{}
                                               public interface Tracking{}
    public interface tran   :Transaction{} public interface Transaction{}
-   public interface tx     :Transmission{} public interface Transmission{}
-   public interface txt    :Text{} public interface Text{}
-   public interface ui     :UserInterface, GraphicUserInterface{} public interface UserInterface{}
+   public interface tx     :Transmission, Domain.Blockchain, Domain.Communication{} public interface Transmission{}
+   public interface txt    :Text, Domain.Programming{} public interface Text{}
+   public interface ui     :UserInterface, GraphicUserInterface, Domain.Programming{} public interface UserInterface{}
    public interface usr    :User{} public interface User{}
    public interface upd    :Update{} public interface Update{}
-   public interface uq     :Unique{} public interface Unique{}
-   public interface val    :Value{} public interface Value{}
-   public interface vb     :VisualBasic{} public interface VisualBasic{}
-   public interface vec    :Vector{} public interface Vector{}
-   public interface vw     :View{} public interface View{}
+   public interface uq     :Unique, Domain.Programming{} public interface Unique{}
+   public interface val    :Value, Domain.Programming{} public interface Value{}
+   public interface vb     :VisualBasic, Domain.Programming{} public interface VisualBasic{}
+   public interface vec    :Vector, Domain.Programming{} public interface Vector{}
+   public interface vw     :View, Domain.Programming{} public interface View{}
 
    namespace As {
       public interface Pfx<T>{}
       public interface Sfx<T>{}
       public interface Mid<T>{}
    }
+}
+namespace DRY.Domain{
+   public interface any {}
+   public interface Accounting: any { }
+   public interface Warehouse: any { }
+   public interface Programming: any { }
+   public interface Networking: any { }
+   public interface Banking: any { }
+   public interface StockTrading: any { }
+   public interface Medical: any { }
+   public interface Promo: any { }
+   public interface Transportation<T>: any { }
+   public interface Legal: any { }
+   public interface Political: any { }
+   public interface Communication: any { }
+   public interface Blockchain: any { }
+   public interface CRM: any { }
+   public interface Insurance: any { }
 }
