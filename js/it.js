@@ -44,12 +44,12 @@ it.seq = function*(...streams){
 
 {// use ===null instead of ==null because undefined==null
     let assert = drylib.dbg.assert;
-    for(var e of it.and([1,2,3,4][Symbol.iterator](),[1,4,9][Symbol.iterator]())){
+    for(let e of it.and([1,2,3,4][Symbol.iterator](),[1,4,9][Symbol.iterator]())){
         assert(()=>1 && e[0]*e[0] == e[1])
     }
     {
         let t;
-        for(var e of it.or([1,2,3,4][Symbol.iterator](),[1,4,9][Symbol.iterator]())){
+        for(let e of it.or([1,2,3,4][Symbol.iterator](),[1,4,9][Symbol.iterator]())){
             if(e[1]==undefined)
                 t = e[0]
         }
@@ -57,7 +57,7 @@ it.seq = function*(...streams){
     }
     {
         let t=[];
-        for(var e of it.seq([1,2,3,4][Symbol.iterator](),[1,4,9][Symbol.iterator]())){
+        for(let e of it.seq([1,2,3,4][Symbol.iterator](),[1,4,9][Symbol.iterator]())){
             t.push(e)
         }
         assert(()=>3 && t.length == 5)
