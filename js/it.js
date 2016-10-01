@@ -3,6 +3,10 @@
 "use strict";
 ;(function(){let it = drylib.it={};
 
+it.its = function(...iterables){ // returns array of iterators from array of iterables
+    return iterables.map(it => it[Symbol.iterator]());
+}
+             
 // iterate in parallel producing vector on each iteration until at least one iterator is done
 it.and = function*(...streams){
     let ret = new Array(streams.length);
@@ -44,12 +48,12 @@ it.seq = function*(...streams){
 
 {// use ===null instead of ==null because undefined==null
     let assert = drylib.dbg.assert;
-    for(let e of it.and([1,2,3,4][Symbol.iterator](),[1,4,9][Symbol.iterator]())){
+    for(let e of it.and(...it.its([1,2,3,4],[1,4,9]))){
         assert(()=>1 && e[0]*e[0] == e[1])
     }
     {
         let t;
-        for(let e of it.or([1,2,3,4][Symbol.iterator](),[1,4,9][Symbol.iterator]())){
+        for(let e of it.or(...it.its([1,2,3,4],[1,4,9]))){
             if(e[1]==undefined)
                 t = e[0]
         }
@@ -57,7 +61,7 @@ it.seq = function*(...streams){
     }
     {
         let t=[];
-        for(let e of it.seq([1,2,3,4][Symbol.iterator](),[1,4,9][Symbol.iterator]())){
+        for(let e of it.seq(...it.its([1,2,3,4],[1,4,9]))){
             t.push(e)
         }
         assert(()=>3 && t.length == 5)
