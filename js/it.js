@@ -73,6 +73,10 @@ let flat = it.flat = function*(stream){
     }
 }
 
+it.rev = function*(stream){// reverse stream or array
+    yield* Array.from(stream).reverse();
+}
+
 drylib.comparer = (a,b)=>{
     if (a === b)
         return 0;
@@ -159,5 +163,7 @@ it.compare = (a,b,comparer)=>{
         assert(()=>7.1 && t[Symbol.iterator]() == t);
         assert(()=>7.2 && t[Symbol.iterator]()[Symbol.iterator]() == t);
     }
+
+    assert(()=>8 && it.compare(it.rev([1,2,3]),[3,2,1]).val == 0);
 }
 })()
