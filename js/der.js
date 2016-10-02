@@ -50,6 +50,8 @@ let get = der.get = (root_path, name_path)=>{
 }
 
 let proxy = der.proxy = (path)=>{ // path consists of pairs of o, name, root does not have corresponding name
+    if(!path instanceof Array)
+        return proxy([{o: path}];
     return new Proxy(path[path.length-1].o, {
         get: (target, name)=>{
             return get(path, [name]);
@@ -60,5 +62,22 @@ let proxy = der.proxy = (path)=>{ // path consists of pairs of o, name, root doe
 
 {// use ===null instead of ==null because undefined==null
     let assert = drylib.dbg.assert;
+    
+    let base = {
+        a: 1,
+        b: {
+            c: 2;
+        },
+        f: ()=>{
+            return der.proxy(this).b.c;
+        },
+    };
+    let d = {
+        b: {
+            c: 3;
+        },
+    };
+    d.prototype = base;
+    assert(()=>1 && d.f == 3)
 }
 })()
