@@ -77,31 +77,10 @@ it.rev = function*(stream){// reverse stream or array
     yield* Array.from(stream).reverse();
 }
 
-drylib.comparer = (a,b)=>{
-    if (a === b)
-        return 0;
-    if (a === undefined)
-        return -1; // undefined is less than everything
-    if (b === undefined)
-        return 1; // undefined is less than everything
-    if (a === null)
-        return -1; // null is less than everything except undefined
-    if (b === null)
-        return 1; // null is less than everything except undefined
-    if (a === NaN)
-        return -1; // NaN is less than everything except undefined and null
-    if (b === NaN)
-        return 1; // NaN is less than everything except undefined and null
-    if (a < b)
-        return -1
-    else
-        return 1;
-}
-
 it.compare = (a,b,comparer)=>{
     a = it.iterator(a); // a,b are iterables or iterators
     b = it.iterator(b);
-    comparer = comparer || drylib.comparer;
+    comparer = comparer || drylib.val.comparer;
     let ix = 0;
     // compare 2 sequences
     for (let pair of it.or([a,b])){
@@ -145,7 +124,7 @@ it.compare = (a,b,comparer)=>{
     assert(()=>4.3 && it.compare([1,2,3],[1,2,3,4]).val == -1);
     assert(()=>4.4 && it.compare([undefined],[null]).val == -1);
     assert(()=>4.5 && it.compare([undefined,NaN],[undefined]).val == 1);
-    //TODO: fails, fix the bug assert(()=>4.6 && it.compare([undefined,NaN,null],[undefined,NaN,NaN]).val == -1);
+    assert(()=>4.6 && it.compare([undefined,NaN,null],[undefined,NaN,NaN]).val == -1);
     assert(()=>4.7 && it.compare([null],['abc']).val == -1);
     assert(()=>4.8 && it.compare(['abc','d',undefined],['abc','e']).val == -1);
     
