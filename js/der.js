@@ -67,6 +67,9 @@ let proxy = der.proxy = (path)=>{ // path consists of pairs of o, name, root doe
         a: 1,
         b: {
             c: 2;
+            f: ()=>{
+                return der.proxy(this).c;
+            },
         },
         f: ()=>{
             return der.proxy(this).b.c;
@@ -78,6 +81,7 @@ let proxy = der.proxy = (path)=>{ // path consists of pairs of o, name, root doe
         },
     };
     d.prototype = base;
-    assert(()=>1 && d.f == 3)
+    assert(()=>1 && d.f() == 3)
+    assert(()=>2 && d.b.f() == 3)
 }
 })()
