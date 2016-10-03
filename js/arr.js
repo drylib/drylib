@@ -4,9 +4,22 @@
 
 arr.last = x => x.slice(-1)[0];
 
+arr.eq = (x,y)=>{
+    let len = x.length;
+    if(len != y.length)
+        return false;
+    for(let i=len-1; i>=0; i--)
+        if(x[i] != y[i])
+          return false;
+    return true;
+}
+                         
 
 {// use ===null instead of ==null because undefined==null
     let assert = drylib.dbg.assert;
     assert(()=>1 && arr.last([1,2,3]) == 3)
+    assert(()=>2 && arr.eq([1,2,3],[1,2,3]))
+    assert(()=>3 && !arr.eq([1],[2]))
+    assert(()=>4 && !arr.eq([1],[]))
 }
 })()
