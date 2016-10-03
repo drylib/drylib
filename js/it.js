@@ -73,18 +73,6 @@ let flat = it.flat = function*(stream){
     }
 }
 
-it.rev = function*(stream){// reverse stream or array
-    yield* Array.from(stream).reverse();
-}
-
-it.spy = function*(stream, fn){// spy on stream
-    for(let e of stream)
-    {
-        fn(e);
-        yield e;
-    }
-}
-
 it.compare = (a,b,comparer)=>{
     a = it.iterator(a); // a,b are iterables or iterators
     b = it.iterator(b);
@@ -99,6 +87,45 @@ it.compare = (a,b,comparer)=>{
     }
     return {val: 0};
 }
+
+
+it.rev = function*(stream){// reverse stream or array
+    yield* Array.from(stream).reverse();
+}
+
+it.spy = function*(stream, fn){// spy on stream
+    for(let e of it.iterator(stream))
+    {
+        fn(e);
+        yield e;
+    }
+}
+
+it.tee = function(src, dsts){// dup incoming stream into multiple outgoing streams
+    for(let e of it.iterator(src))
+        for(let dst of dsts)
+            dst.next(e);
+    for(let dst of dsts)
+        dst.return(); // causes dst generator to yield {value=undefined, done=true}
+}
+
+it.merge = function*(srcs){// merge incoming streams into outgoing stream
+    let srcs = Array.from(srcs, x => it.iterator(x));
+    let done = false;
+    while(!done){
+        done = true;
+        for(let src of srcs)
+        {
+            let ret = src.next();
+            if(!ret.done)
+            {
+                done = false;
+                yield ret.value;
+            }
+        }
+    }
+}
+
 
 {// use ===null instead of ==null because undefined==null
     let assert = drylib.dbg.assert;
