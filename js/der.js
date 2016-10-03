@@ -55,16 +55,30 @@ let proxy = der.proxy = (path)=>{ // path consists of pairs of o, name, root doe
     return new Proxy(path[path.length-1].o, {
         get: (target, name)=>{
             return get(path, [name]);
-        }
+        },
+        set: function(target, property, value, receiver) {
+            let ret;
+            for(let e in path){
+                ret = e.o;
+                if(e.name === undefined)
+                    continue;
+                if(!ret.hasOwnProperty(e.name)) // create direct (not through prototypes) path
+                    ret = ret[e.name] = {};
+                else
+                    ret = ret[e.name];
+            }
+            ret[property] = value;
+            return true;
+        }            
     });
 }
 
 
 {// use ===null instead of ==null because undefined==null
     let assert = drylib.dbg.assert;
-    
+              
     let base = {
-        a: 1,
+        a: { a1:{}},
         b: {
             c: 2;
             f: ()=>{
@@ -83,5 +97,6 @@ let proxy = der.proxy = (path)=>{ // path consists of pairs of o, name, root doe
     d.prototype = base;
     assert(()=>1 && d.f() == 3)
     assert(()=>2 && d.b.f() == 3)
+    assert(()=>{d.a.a1.a2 = 'a2val'; return 3 && d.a.a1.a2 == 'a2val' && base.a.a1.a2 != 'a2val' )
 }
 })()
