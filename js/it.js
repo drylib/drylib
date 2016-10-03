@@ -77,6 +77,14 @@ it.rev = function*(stream){// reverse stream or array
     yield* Array.from(stream).reverse();
 }
 
+it.spy = function*(stream, fn){// spy on stream
+    for(let e of stream)
+    {
+        fn(e);
+        yield e;
+    }
+}
+
 it.compare = (a,b,comparer)=>{
     a = it.iterator(a); // a,b are iterables or iterators
     b = it.iterator(b);
