@@ -97,6 +97,6 @@ let proxy = der.proxy = (path)=>{ // path consists of pairs of o, name, root doe
     d.prototype = base;
     assert(()=>1 && d.f() == 3)
     assert(()=>2 && d.b.f() == 3)
-    assert(()=>{d.a.a1.a2 = 'a2val'; return 3 && d.a.a1.a2 == 'a2val' && base.a.a1.a2 != 'a2val' )
+    assert(()=>{d.a.a1.a2 = 'a2val'; return 3 && d.a.a1.a2 == 'a2val' && base.a.a1.a2 != 'a2val';} )
 }
 })()
