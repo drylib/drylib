@@ -34,6 +34,11 @@ is.primitive = x => false
         ||x instanceof Symbol
 ;
 
+is.str = x => false
+        ||x instanceof String
+        ||typeof x == 'string'
+;
+                         
 {// use ===null instead of ==null because undefined==null
     let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
 
@@ -53,4 +58,6 @@ is.primitive = x => false
     assert(()=>14 && val.is.primitive(new Number(5)));
     assert(()=>15 && val.is.primitive(new String('abc')));
     assert(()=>16 && !val.is.primitive({}));
+    assert(()=>17 && !val.is.str({}));
+    assert(()=>18 && val.is.str('abc') && val.is.str(new String('abc')));
 }})();
