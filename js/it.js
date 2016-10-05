@@ -73,10 +73,15 @@ let flat = it.flat = function*(stream){
     }
 }
 
+if(!drylib.val)
+    drylib.val = {};
+if(!drylib.val.comparer)
+    drylib.val.comparer = (a,b)=>new String(a).localeCompare(b);
+
 it.compare = (a,b,comparer)=>{
     a = it.iterator(a); // a,b are iterables or iterators
     b = it.iterator(b);
-    comparer = comparer || drylib.val.comparer;
+    comparer = comparer || drylib.val.comparer ;
     let ix = 0;
     // compare 2 sequences
     for (let pair of it.or([a,b])){
@@ -109,8 +114,8 @@ it.tee = function(src, dsts){// dup incoming stream into multiple outgoing strea
         dst.return(); // causes dst generator to yield {value=undefined, done=true}
 }
 
-it.merge = function*(srcs){// merge incoming streams into outgoing stream
-    let srcs = Array.from(srcs, x => it.iterator(x));
+it.collect = function*(srcs){// collect incoming streams into outgoing stream
+    srcs = Array.from(srcs, x => it.iterator(x));
     let done = false;
     while(!done){
         done = true;
@@ -127,8 +132,8 @@ it.merge = function*(srcs){// merge incoming streams into outgoing stream
 }
 
 
-{// use ===null instead of ==null because undefined==null
-    let assert = drylib.dbg.assert;
+{ // unit tests
+    let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
     {
         let t = [];
         for (let e of it.iterator([1,2,3,4]))
