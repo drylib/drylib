@@ -44,8 +44,8 @@ str.it.toUpperCase = function*(it){
 
 
 
-{// use ===null instead of ==null because undefined==null
-    let assert = drylib.dbg.assert; //dbg.assert.log = true;
+{// unit tests
+    let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
     assert(()=>1 && Array.from(char.it.toUpperCase('abc'.split(''))).join('') == 'ABC');
     assert(()=>2 && Array.from(str.it.toUpperCase('abc def'.split(' '))).join(' ') == 'ABC DEF');
 }
