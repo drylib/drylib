@@ -15,8 +15,8 @@ arr.eq = (x,y)=>{
 }
                          
 
-{// use ===null instead of ==null because undefined==null
-    let assert = drylib.dbg.assert;
+{// unit tests
+    let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
     assert(()=>1 && arr.last([1,2,3]) == 3)
     assert(()=>2 && arr.eq([1,2,3],[1,2,3]))
     assert(()=>3 && !arr.eq([1],[2]))
