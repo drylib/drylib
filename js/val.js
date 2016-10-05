@@ -32,6 +32,7 @@ is.primitive = x => false
         ||x instanceof Number
         ||x instanceof String
         ||x instanceof Symbol
+        ||x instanceof Date // have to include because (new Date()) instanceof Number == false
 ;
 
 is.str = x => false
