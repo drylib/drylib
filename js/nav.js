@@ -39,8 +39,8 @@ let proxy = nav.proxy = (root, fake, path)=>{
     });
 }
 
-{// use ===null instead of ==null because undefined==null
-    let assert = drylib.dbg.assert;
+{// unit tests
+    let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
     
     let t = {
         a:{},
