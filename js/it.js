@@ -75,13 +75,13 @@ let flat = it.flat = function*(stream){
 
 if(!drylib.val)
     drylib.val = {};
-if(!drylib.val.comparer)
-    drylib.val.comparer = (a,b)=>new String(a).localeCompare(b);
+if(!drylib.val.compare)
+    drylib.val.compare = (a,b)=>new String(a).localeCompare(b);
 
 it.compare = (a,b,comparer)=>{
     a = it.iterator(a); // a,b are iterables or iterators
     b = it.iterator(b);
-    comparer = comparer || drylib.val.comparer ;
+    comparer = comparer || drylib.val.compare ;
     let ix = 0;
     // compare 2 sequences
     for (let pair of it.or([a,b])){
