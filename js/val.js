@@ -43,6 +43,7 @@ is.str = x => false
 ;
 
 is.sys = x => false // true if x is system (non user-defined) object
+        ||is.primitive(x)
         // Mozilla list of Built-in objects
         // with commented lines that cause error on Chrome
         ||x instanceof Array
@@ -121,4 +122,5 @@ is.sys = x => false // true if x is system (non user-defined) object
     assert(()=>18 && val.is.str('abc') && val.is.str(new String('abc')));
     assert(()=>19.1 && val.is.sys(new Map()));
     assert(()=>19.2 && !val.is.sys({}));
+    assert(()=>19.3 && !val.is.sys(5));
 }})();
