@@ -13,13 +13,32 @@ arr.eq = (x,y)=>{
           return false;
     return true;
 }
-                         
+
+arr.compare = (x,y)=>{
+    let i;
+    for(i=0; i<x.length && i<y.length; i++)
+    {
+        if(x[i] < y[i])
+            return -1;
+        if(x[i] > y[i])
+            return 1;
+    }
+    if(i<x.length)
+        return 1;
+    if(i<y.length)
+        return -1;
+    return 0;
+}
+
 
 {// unit tests
     let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
-    assert(()=>1 && arr.last([1,2,3]) == 3)
-    assert(()=>2 && arr.eq([1,2,3],[1,2,3]))
-    assert(()=>3 && !arr.eq([1],[2]))
-    assert(()=>4 && !arr.eq([1],[]))
-}
-})()
+    assert(()=>1 && arr.last([1,2,3]) == 3);
+    assert(()=>2 && arr.eq([1,2,3],[1,2,3]));
+    assert(()=>3 && !arr.eq([1],[2]));
+    assert(()=>4 && !arr.eq([1],[]));
+    assert(()=>5.1 && arr.compare(['abc'],['abd']) == -1);
+    assert(()=>5.2 && arr.compare(['ab'],['abc']) == -1);
+    assert(()=>5.3 && arr.compare(['abcd'],['abc']) == 1);
+    assert(()=>5.4 && arr.compare([],[]) == 0);
+}})();
