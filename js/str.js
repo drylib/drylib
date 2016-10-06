@@ -48,5 +48,19 @@ str.it.toUpperCase = function*(it){
     let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
     assert(()=>1 && Array.from(char.it.toUpperCase('abc'.split(''))).join('') == 'ABC');
     assert(()=>2 && Array.from(str.it.toUpperCase('abc def'.split(' '))).join(' ') == 'ABC DEF');
+    
+    {// diff between RegExp.exec and String.match: RegExp.exec is more flexible for high performance apps
+     // because it allows to stop search after first occurrence and discard the rest if logically needed
+        let s = 'aa aa bb';
+        let rx = /aa/g;
+        let res = s.match(rx);
+        assert(()=>1 && res.length == 2 && res[0] == 'aa' && res[1] == 'aa');
+        let res1 = rx.exec(s);
+        assert(()=>2.1 && res1.index == 0);
+        let res2 = rx.exec(s);
+        assert(()=>2.2 && res2.index == 3);
+        let res3 = rx.exec(s);
+        assert(()=>2.3 && res3 === null);
+    }
 }
 })()
