@@ -8,7 +8,6 @@ String.prototype.toProperCase=function(){
 }
 
 char.codes = {
-    a: 'a'.charCodeAt(0),
 };
                          
 for(let c of 'azAZ'.split(''))
