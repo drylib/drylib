@@ -122,5 +122,10 @@ is.sys = x => false // true if x is system (non user-defined) object
     assert(()=>18 && val.is.str('abc') && val.is.str(new String('abc')));
     assert(()=>19.1 && val.is.sys(new Map()));
     assert(()=>19.2 && !val.is.sys({}));
-    assert(()=>19.3 && !val.is.sys(5));
+    assert(()=>19.3 && val.is.sys(5));
+    assert(()=>19.4 && val.is.sys(true));
+    assert(()=>19.5 && val.is.sys(''));
+    assert(()=>19.6 && val.is.sys(Date.now()));
+    assert(()=>19.7 && val.is.sys(new Date()));
+    assert(()=>19.8 && val.is.sys([]));
 }})();
