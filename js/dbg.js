@@ -4,7 +4,7 @@
 
 dbg.off = false; // users can set dl.dbg.off=true in release mode to avoid running all unit tests at startup
 
-dbg.assert = function(fn){
+dbg.assert = fn=>{
     if (dbg.assert.off || dbg.off)
         return;
     if (typeof fn == 'string')
@@ -21,7 +21,7 @@ dbg.assert = function(fn){
     msg = msg.substring(0, msg.length-1);
     if (!success)
     {
-        if(typeof console == 'object')
+        if (typeof console == 'object')
             console.assert(false, fn, res_args);
         else
           	alert(msg);
@@ -34,30 +34,30 @@ dbg.assert = function(fn){
             	console.log('Pass', msg, res_args)
             else
           		alert('Pass:' + msg);
-}
+};
 
-dbg.show = (x)=>{
+dbg.show = x=>{
     alert(x);
     return x;
-}
+};
                          
-dbg.log = function(x){
-    if(!dbg.log.off && !dbg.off){
+dbg.log = x=>{
+    if (!dbg.log.off && !dbg.off)
+    {
         if (typeof console == 'object')
             console.log(x);
         else
             dbg.show(x);
     }
     return x
-}
+};
 
 
-{// use ===null instead of ==null because undefined==null
+{// unit tests
     let assert = dbg.assert; dbg.assert.log = true;
   
     assert(()=>1 && [true, 'assert true test'])
     assert(()=>2 && [false, 'assert false test'])
     
     dbg.assert.log = false;
-}
-})()
+}})();
