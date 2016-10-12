@@ -4,36 +4,46 @@
 
 dbg.off = false; // users can set dl.dbg.off=true in release mode to avoid running all unit tests at startup
 
-dbg.assert = fn=>{
+dbg.assert = (fn, ...args)=>{
     if (dbg.assert.off || dbg.off)
-        return;
+        return [fn, ...args];
     if (typeof fn == 'string')
         fn = eval('function(){'+fn+'}');
-    var res = fn();
-    var success = res;
-  	var res_args;
+    let res;
+    if (typeof fn == 'function')
+        res = fn();
+    else
+        res = !!fn;
+    let success = res;
+  	let res_args = [];
     if (res instanceof Array)
     {
         success = res[0];
       	res_args = res.slice(1);
     }
-    let msg = fn.toString().match(/function.*\{\s*return(.*)\s*\}/i)[1];
-    msg = msg.substring(0, msg.length-1);
+    let msg = '';
+    if (typeof fn == 'function')
+        msg = fn.toString().match(/function.*\{\s*return(.*)\s*\}/i)[1].slice(0,-1);
+    let res_args_log = res_args.filter(arg=>!msg.includes(arg));
     if (!success)
     {
         if (typeof console == 'object')
-            console.assert(false, fn, res_args);
+        {
+            console.log('Fail', msg, res_args_log, args);
+            console.assert(false, fn, res_args, args);
+        }
         else
-          	alert(msg);
+            alert('Fail:' + msg);
         if (dbg.assert.break)
             debugger;
     }
     else
         if (dbg.assert.log)
-        	if(typeof console == 'object')
-            	console.log('Pass', msg, res_args)
+        	if (typeof console == 'object')
+            	console.log('Pass', msg, res_args_log, args);
             else
           		alert('Pass:' + msg);
+    return res;
 };
 
 dbg.show = x=>{
@@ -42,22 +52,40 @@ dbg.show = x=>{
 };
                          
 dbg.log = x=>{
-    if (!dbg.log.off && !dbg.off)
+    if (!dbg.log.off)
     {
         if (typeof console == 'object')
             console.log(x);
         else
             dbg.show(x);
     }
-    return x
+    return x;
 };
 
+;(()=>{
+    let off = false;
+    Object.defineProperty(dbg.log, 'off', {
+         get: ()=> off || dbg.off,
+         set: value=> off = value,
+    });
+})();
 
 {// unit tests
-    let assert = dbg.assert; dbg.assert.log = true;
+    let assert = dbg.assert; let log = dbg.log; dbg.assert.log = true; dbg.off = true;
   
-    assert(()=>1 && [true, 'assert true test'])
-    assert(()=>2 && [false, 'assert false test'])
+    assert(()=>1 && [true, 'assert true']);
+    assert(()=>2 && [false, 'assert false']);
+    assert(assert(()=>3) == 3);
+    let other = 'other data';
+    assert(()=>4 && [true, 'pass other data'], other);
+    
+    log.off = true;
+    assert(()=>5 && log.off);
+    log('Invisible');
+    log.off = false;
+    log('Visible');
+    assert(()=>6 && !log.off);
     
     dbg.assert.log = false;
+    dbg.off = false;
 }})();
