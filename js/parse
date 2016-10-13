@@ -11,13 +11,13 @@ let bal = parse.bal = s => {
         '[': ']',
     };
     let rights = {};
-    for(let left in lefts)
+    for (let left in lefts)
         rights[lefts[left]] = left;
     let need = [];
     let i = 0,c;
-    while (i<x.length)
+    while (i < s.length)
     {
-        c = x[i];
+        c = s[i];
         if (lefts[c])
             need.push(lefts[c]);
         else if (rights[c] && need.pop() != c)
@@ -35,10 +35,10 @@ let bal = parse.bal = s => {
 
     {
         let bal = parse.bal;
-        assert(()=>1.1 && bal('a(bc'));
+        assert(()=>1.1 && !bal('a(bc'));
         assert(()=>1.2 && bal('a(b)c'));
-        assert(()=>1.3 && bal('ab)c'));
-        assert(()=>1.4 && bal('[ab)c]'));
+        assert(()=>1.3 && !bal('ab)c'));
+        assert(()=>1.4 && !bal('[ab)c]'));
         assert(()=>1.5 && bal('[(ab)c]'));
     }
 }
