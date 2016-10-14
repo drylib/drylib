@@ -1,7 +1,38 @@
 // Copyright (c) 2016 drylib.com - All rights reserved. Terms are in drylib.js
 // You are NOT ALLOWED to modify and/or use this code without author permission
-"use strict";(function(){let tr = drylib.tr = {}; let val = drylib.val;
+"use strict";(function(){let val = drylib.val;
 
+let tr = drylib.tr = ()=>{ 
+    // create new tree based on Map rather than object properties
+    // advantage is: order of enumeration is the same as order of addition
+    // TODO: option to use together with nav.proxy to avoid auto addition on get
+    let map;
+    return new Proxy({}, {
+        get: (target, name)=>{ // auto add missing elements on get
+            if (!map)
+                map = new Map(1);
+            let ret = map.get(name);
+            if (ret === undefined) // could use map.has(name), but it will mean double seek
+            {
+                ret = tr();
+                map.set(name, ret);
+            }
+            return ret;
+        },
+        set: (target, name, value, receiver)=>{ // just forward to map
+            if (!map)
+                map = new Map(1);
+            map.set(name, value)
+            return true;
+        },
+        [Symbol.iterator]: function*(){
+            if (!map)
+                return;
+            yield* map[Symbol.iterator](); // luckily map keeps order of addition
+        },
+    });
+}   
+                         
 tr.compose = (d,s)=>{ // attaches s to all leaves of d
    if (!(d instanceof Array) && val.is.sys(d))
        return;
