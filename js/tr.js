@@ -6,6 +6,7 @@ let tr = drylib.tr = ()=>{
     // create new tree based on Map rather than object properties
     // advantage is: order of enumeration is the same as order of addition
     // TODO: option to use together with nav.proxy to avoid auto addition on get
+    // TODO: support anonymous elements mixed with named elements
     let map;
     return new Proxy({}, {
         get: (target, name)=>{ // auto add missing elements on get
