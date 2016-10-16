@@ -6,9 +6,9 @@ let tr = drylib.tr = ()=>{
     // create new tree based on Map rather than object properties
     // advantage is: order of enumeration is the same as order of addition
     // TODO: option to use together with nav.proxy to avoid auto addition on get
-    // TODO: support anonymous elements mixed with named elements
+    let list;
     let map;
-    return new Proxy({}, {
+    let node = new Proxy({}, {
         get: (target, name)=>{ // auto add missing elements on get
             if (!map)
                 map = new Map(1);
@@ -17,21 +17,39 @@ let tr = drylib.tr = ()=>{
             {
                 ret = tr();
                 map.set(name, ret);
+                if (!list)
+                    list = [ret];
+                else
+                    list.push(ret);
             }
             return ret;
         },
         set: (target, name, value, receiver)=>{ // just forward to map
             if (!map)
                 map = new Map(1);
+            let size = map.size; // to detect addition
             map.set(name, value)
+            if(map.size > size) // added, so adding to list too
+                if (!list)
+                    list = [ret];
+                else
+                    list.push(ret);
             return true;
         },
         [Symbol.iterator]: function*(){
             if (!map)
                 return;
-            yield* map[Symbol.iterator](); // luckily map keeps order of addition
+            yield* list[Symbol.iterator]();
         },
     });
+    
+    node.add = x=>{ // add anonymous element
+        if (!list)
+            list = [x];
+        else
+            list.push(x);
+    };
+    return node;
 }   
                          
 tr.compose = (d,s)=>{ // attaches s to all leaves of d
