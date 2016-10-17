@@ -10,8 +10,11 @@
             return {
                 then: then,
                 resolve: res=>{
-                    for (let e of arr)
-                        res = e(res);
+                    for (let fn of arr)
+                        if(typeof fn =='function')
+                            res = fn(res);
+                        else
+                            res = fn;
                   return res;
                 },
             };
@@ -23,7 +26,6 @@
         .then(function(res){ console.log('then-1', res); return 'ret-1'; })
         .then(function(res){ console.log('then-2', res); return 'ret-2'; })
     ;
-    d.resolve('init');
       
     assert(()=>1 && d.resolve('init') == 'ret-2');
 }
