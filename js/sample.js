@@ -1,9 +1,8 @@
 // Copyright (c) 2016 drylib.com - All rights reserved. Terms are in drylib.js
 // You are NOT ALLOWED to modify and/or use this code without author permission
-"use strict";(function(){
+"use strict";(function(){let dbg = drylib.dbg; let assert = dbg.assert; dbg.assert.log = true;
 
 {
-    let dbg = drylib.dbg; let assert = dbg.assert; dbg.assert.log = true;
     let defer = ()=>{
         let arr = [];
         let then = x=>{
