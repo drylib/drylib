@@ -18,23 +18,25 @@ namespace DRY.Abbr{
    public interface bin    :Binary{} public interface Binary{}
    public interface biz    :Business, Corporate, Company{} public interface Business{}
                                                            public interface Company{}
-   public interface @bool  :Boolean{} public interface Boolean{}
-   public interface buf    :Buffer {} public interface Buffer{} // https://msdn.microsoft.com/en-us/library/windows/desktop/ms740149(v=vs.85).aspx
-   public interface calc   :Calculation{} public interface Calculation{}
-   public interface cmd    :Command{} public interface Command{}
-   public interface cmp    :Compare{} public interface Compare{}
-   public interface col    :Column{} public interface Column{}
+   public interface @bool  :Boolean, Domain.Programming{} public interface Boolean{}
+   public interface buf    :Buffer, Domain.Programming {} public interface Buffer{} // https://msdn.microsoft.com/en-us/library/windows/desktop/ms740149(v=vs.85).aspx
+   public interface calc   :Calculation, Domain.any{} public interface Calculation{}
+   public interface cmd    :Command, Domain.Programming{} public interface Command{}
+   public interface cmp    :Compare, Domain.Programming{} public interface Compare{}
+   public interface col    :Column, Domain.Programming{} public interface Column{}
    public interface comm   :Communication{} public interface Communication{}
    public interface conn   :Connection{} public interface Connection{}
    public interface corp   :Corporate, Business{} public interface Corporate{}
    public interface cr     :Create{} public interface Create{}
    public interface cs     :CustomerService, CSharp{} public interface CustomerService{}
                                                       public interface CSharp{}
-   public interface cust   :Customer{} public interface Customer{}
-   public interface cx     :Context{} public interface Context{}
-   public interface db     :Database{} public interface Database{}
-   public interface dbg    :Debug{} public interface Debug{}
-   public interface dec    :Decrement{} public interface Decrement{}
+   public interface cust   :Domain.CRM<Customer>, Domain.Banking<Custodian>{}
+                           public interface Customer{}
+                           public interface Custodian{}
+   public interface cx     :Context, Domain.Programming{} public interface Context{}
+   public interface db     :Database, Domain.Programming{} public interface Database{}
+   public interface dbg    :Debug, Domain.Programming{} public interface Debug{}
+   public interface dec    :Decrement, Domain.Programming{} public interface Decrement{}
    public interface decl   :Declaration{} public interface Declaration{}
    public interface def    :Definition, Define{} public interface Definition{}
                                                  public interface Define{}
@@ -42,18 +44,21 @@ namespace DRY.Abbr{
    public interface dev    :Development, Developer{} public interface Development{}
                                                      public interface Developer{}
    public interface df     :Default{} public interface Default{}
+   public interface dict   :Dictionary, Domain.Programming{} public interface Dictionary{}
    public interface dir    :Directory, Folder{} public interface Directory{}
                                                 public interface Folder{}
    public interface doc    :Document{} public interface Document{}
    public interface drop   :Drop, Delete, Remove{} public interface Drop{}
    public interface drv    :Driver, Drive{} public interface Driver{}
                                             public interface Drive{}
-   public interface dry    :DontRepeatYourself{} public interface DontRepeatYourself{}
-   public interface ds     :DataSet, RowSet{} public interface DataSet{}
+   public interface dry    :DontRepeatYourself, Domain.Programming{} public interface DontRepeatYourself{}
+   public interface ds     :DataSet, RowSet, Domain.Programming{} public interface DataSet{}
    public interface dst    :Destination{} public interface Destination{}
-   public interface dt     :DateTime{} public interface DateTime{}
-   public interface dup    :Duplicate, Copy{} public interface Duplicate{}
-                                              public interface Copy{}
+   public interface dt     :DateTime, Domain.Programming{} public interface DateTime{}
+   public interface dup    :Duplicate, Copy, Clone, Domain.Programming{}
+                           public interface Duplicate{}
+                           public interface Copy{}
+                           public interface Clone{}
    public interface emp    :Employee{} public interface Employee{}
    public interface env    :Environment{} public interface Environment{}
    public interface err    :Error, Exception{} public interface Error{}
@@ -66,10 +71,12 @@ namespace DRY.Abbr{
                            public interface Exterior{}
    public interface eval   :Evaluate{} public interface Evaluate{}
    public interface fin    :Financial{} public interface Financial{}
-   public interface fk     :ForeignKey{} public interface ForeignKey{}
-   public interface fld    :Field{} public interface Field{}
-   public interface flt    :Filter, Domain.Programming, Domain.Transportation<Flight>{} public interface Filter{} public interface Flight{}
-   public interface fn     :Function{} public interface Function{}
+   public interface fk     :ForeignKey, Domain.Programming{} public interface ForeignKey{}
+   public interface fld    :Field, Domain.Programming{} public interface Field{}
+   public interface flt    :Domain.Programming<Filter>, Domain.Transportation<Flight>{}
+                           public interface Filter{}
+                           public interface Flight{}
+   public interface fn     :Function, Domain.Programming{} public interface Function{}
    public interface frac   :Fractional{} public interface Fractional{}
                                          public interface Decimal{}
    public interface gen    :Generate{} public interface Generate{}
@@ -134,6 +141,7 @@ namespace DRY.Abbr{
    public interface @ref   :Reference, Domain.Programming{} public interface Reference{}
    public interface rel    :Relation, Domain.Programming{} public interface Relation{}
    public interface rep    :Representative, Domain.Insurance, Domain.CRM{} public interface Representative{}
+   public interface repl   :Replication, Domain.Programming{} public interface Replication{}
    public interface req    :Require, Requirement, Requisition {}
                             public interface Require{} // http://dictionary.reference.com/browse/req-
                             public interface Requirement : Domain.Programming{}
@@ -195,9 +203,9 @@ namespace DRY.Domain{
    public interface any {}
    public interface Accounting: any { }
    public interface Warehouse: any { }
-   public interface Programming: any { }
+   public interface Programming: any { } public interface Programming<T>: any { }
    public interface Networking: any { }
-   public interface Banking: any { }
+   public interface Banking: any { } public interface Banking<T>: any { }
    public interface StockTrading: any { }
    public interface Medical: any { }
    public interface Promo: any { }
@@ -206,6 +214,7 @@ namespace DRY.Domain{
    public interface Political: any { }
    public interface Communication: any { }
    public interface Blockchain: any { }
-   public interface CRM: any { }
+   public interface CRM: any { } public interface CRM<T>: any { }
    public interface Insurance: any { }
+   public interface Math: any { }   public interface Math<T>: any { }
 }
