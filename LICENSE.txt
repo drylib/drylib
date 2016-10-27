@@ -27,7 +27,7 @@
  That includes, for example, execution for evaluation or development purposes.
  Reading the source code (or compiling for reading) is not considered usage.
 
- License costs 0.0014 BTC (or 0.09 ETH) per day per human user per machine.
+ License costs 0.0014 BTC (or 0.0745 ETH) per day per human user per machine.
  If one user configures that software to run on multiple machines then
  daily license fee is multiplied by number of machines.
  If one machine is used or serviced by multiple human users then daily license
