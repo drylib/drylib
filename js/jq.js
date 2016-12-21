@@ -28,6 +28,15 @@
             return ret
         };
     }
+                         
+jQuery.prototype.ohtml = function(){
+  var ret='';
+  this.each(function(){
+    ret += '\r\n' + this.outerHTML;
+  });
+  return ret;
+}
+                        
 
 {// unit tests
     let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
