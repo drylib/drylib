@@ -88,19 +88,19 @@ func (node *Node) Children() <-chan *Node {
 // String returns string value of node as aggregate of all values in subtree
 func (node *Node) String() string {
 	var ret bytes.Buffer
-	node.WriteVal(&ret)
+	node.StringToBuf(&ret)
 	return ret.String()
 }
 
-// WriteVal writes node value to buffer
-func (node *Node) WriteVal(buf *bytes.Buffer) *Node {
+// StringToBuf writes node value to buffer
+func (node *Node) StringToBuf(buf *bytes.Buffer) *Node {
 	node.Locker.RLock()
 	defer node.Locker.RUnlock()
 	if !node.exclude {
 		buf.WriteString(node.val)
 	}
 	for child := node.first; child != nil; child = child.next {
-		child.node.WriteVal(buf)
+		child.node.StringToBuf(buf)
 	}
 	return node
 }
