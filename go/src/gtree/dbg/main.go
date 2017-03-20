@@ -3,18 +3,18 @@ package main
 import (
 	"fmt"
 
-	"tr"
+	"gtree"
 )
 
 func main() {
 	fmt.Println("started")
-	node := tr.Node{}
+	node := gtree.Node{}
 	node.Add("a")
 	if node.String() != "a" {
 		panic("node.String != 'a'")
 	}
 
-	node = tr.Node{}
+	node = gtree.Node{}
 	a := node.Get("a")
 	if a != node.Get("a") {
 		panic(`node.Get("a") != node.Get("a")`)

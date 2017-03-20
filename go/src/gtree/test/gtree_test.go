@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"testing"
 
-	"tr"
+	"gtree"
 )
 
 // TestA tests one node with node.Add("a")
 func TestA(t *testing.T) {
-	var node tr.Node
+	var node gtree.Node
 	node.Add("a")
 	t.Run("HasChild", func(t *testing.T) {
 		if !node.HasChild() {
@@ -26,7 +26,7 @@ func TestA(t *testing.T) {
 
 // TestAB tests 2 nodes a,b on one level
 func TestAB(t *testing.T) {
-	var node tr.Node
+	var node gtree.Node
 	a := node.Add("a")
 	b := node.Add("b")
 	t.Run("a!=b", func(t *testing.T) {
@@ -43,7 +43,7 @@ func TestAB(t *testing.T) {
 
 // TestGet tests adding and getting nodes by key
 func TestGet(t *testing.T) {
-	var node tr.Node
+	var node gtree.Node
 	a := node.Get("a")
 	b := node.Get("b")
 	t.Run("a!=b", func(t *testing.T) {
@@ -89,13 +89,13 @@ func TestGet(t *testing.T) {
 
 func main() {
 	fmt.Println("started")
-	node := tr.Node{}
+	node := gtree.Node{}
 	node.Add("a")
 	if node.String() != "a" {
 		panic("node.String != 'a'")
 	}
 
-	node = tr.Node{}
+	node = gtree.Node{}
 	a := node.Get("a")
 	if a != node.Get("a") {
 		panic(`node.Get("a") != node.Get("a")`)

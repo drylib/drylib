@@ -1,6 +1,6 @@
 // Package tr implements tree of string keys and string values that preserves order of insertion
 // convenient for output text generation
-package tr
+package gtree
 
 import (
 	"bytes"
