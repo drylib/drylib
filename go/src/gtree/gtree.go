@@ -1,4 +1,4 @@
-// Package tr implements tree of string keys and string values that preserves order of insertion
+// Package gtree implements tree of string keys and string values that preserves order of insertion
 // convenient for output text generation
 package gtree
 

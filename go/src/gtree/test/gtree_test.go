@@ -1,4 +1,4 @@
-// Package main implements unit tests for tr package
+// Package main implements unit tests for gtree package
 package tr_test
 
 import (
