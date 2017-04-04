@@ -23,7 +23,13 @@ dbg.assert = (fn, ...args)=>{
     }
     let msg = '';
     if (typeof fn == 'function')
-        msg = fn.toString().match(/function.*\{\s*return(.*)\s*\}/i)[1].slice(0,-1);
+    {
+        let removefn = fn.toString().match(/function.*\{\s*return(.*)\s*\}/i);
+        if(removefn)
+            msg = removefn[1].slice(0,-1);
+        else
+            msg = fn.toString();
+    }
     let res_args_log = res_args.filter(arg=>!msg.includes(arg));
     if (!success)
     {
