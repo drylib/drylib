@@ -13,8 +13,8 @@ let tl = drylib.tl = (x)=>{
         {
             var tail = tl(xdup[i]);
             delete x[i];     // because we are expanding expression into the same object
-            mix(x, tl(i));    // different expressions within same object may overlap each other, for example tl({'a,b':'d,e','b,c':'f,g'}).b=={d,e,f}
-            compose(x, tail); // 'exp1':'exp2' == '(exp1) (exp2)'
+            tr.mix(x, tl(i));    // different expressions within same object may overlap each other, for example tl({'a,b':'d,e','b,c':'f,g'}).b=={d,e,f}
+            tr.compose(x, tail); // 'exp1':'exp2' == '(exp1) (exp2)'
         }
         return x;
     }
@@ -26,9 +26,9 @@ let tl = drylib.tl = (x)=>{
             let ret = {};
             for (let op=0; op<op_.length; op++)
                 if (op==0)
-                    mix(ret, tl(op_[op]));
+                    tr.mix(ret, tl(op_[op]));
                 else
-                    compose(ret, tl(op_[op]));
+                    tr.compose(ret, tl(op_[op]));
             return ret;
         }
     }
@@ -42,7 +42,7 @@ let tl = drylib.tl = (x)=>{
             {
                 let optl = op_[op]=='' ? {'':null} : tl(op_[op]);
                 for(let i in optl)
-                    ret[i] = dup(optl[i]);
+                    ret[i] = tr.dup(optl[i]);
             }
             return ret;
         }
