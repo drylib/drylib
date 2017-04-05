@@ -64,7 +64,7 @@ tr.compose = (d,s)=>{ // attaches s to all leaves of d
    }
 }
 
-tr.mix = (dst,src,fn)=>{ // merge src into dst overwriting collisions
+let mix = tr.mix = (dst,src,fn)=>{ // merge src into dst overwriting collisions
     if (src==null || typeof src!='object' || src.ownerDocument==document || src.documentElement)
         return src;
     if (src instanceof Array)
@@ -72,7 +72,7 @@ tr.mix = (dst,src,fn)=>{ // merge src into dst overwriting collisions
         if (dst==null || typeof dst=='undefined' || !(dst instanceof Array))
             dst=[];
         for (let i=0; i<src.length; i++)
-            dst.push(dup(src[i]));
+            dst.push(tr.dup(src[i]));
     }
     else
         if (dst==null || typeof dst=='undefined')
@@ -84,7 +84,7 @@ tr.mix = (dst,src,fn)=>{ // merge src into dst overwriting collisions
                 if (fn)
                     fn(dst,i,e);
                 if (!val.is.sys(e))
-                    dst[i] = mix(dst[i],e); // takes care of empty dst[i]
+                    dst[i] = tr.mix(dst[i],e); // takes care of empty dst[i]
                 else
                     dst[i] = e;
             }
@@ -92,7 +92,7 @@ tr.mix = (dst,src,fn)=>{ // merge src into dst overwriting collisions
    return dst;
 }
 
-tr.dup = x =>{ // duplicate tree
+let dup = tr.dup = x =>{ // duplicate tree
     // does not protect against cycles
     if (x==null || typeof x!='object' || val.is.sys(x) || x.ownerDocument==document || x.documentElement)
         return x;
@@ -127,14 +127,14 @@ tr.dup.shallow = x =>{
     return ret
 }
 
-tr.it = (src,fn,lvl,safe,dst)=>{ // iterates through tree invoking function for every node, if safe=true it will allow to modify tree inside function
+let it = tr.it = (src,fn,lvl,safe,dst)=>{ // iterates through tree invoking function for every node, if safe=true it will allow to modify tree inside function
     if (lvl==null)
         lvl=0; // levels start from 0 like arrays
     if (src==null || !(src instanceof Object))
         return;
     let srcIt = src;
     if (safe)
-        srcIt=dup.shallow(src);
+        srcIt=tr.dup.shallow(src);
     for (var i in srcIt)
     {
         let e = srcIt[i];
@@ -142,7 +142,7 @@ tr.it = (src,fn,lvl,safe,dst)=>{ // iterates through tree invoking function for 
     }
 }
 
-tr.to = {};
+let to = tr.to = {};
 tr.to.arr = s =>{
     let ret = [];
     tr.it(s, (src,i,e,dst,lvl)=>{
@@ -151,7 +151,7 @@ tr.to.arr = s =>{
     return ret;
 }
 
-tr.from = {};
+let from = tr.from = {};
 tr.from.arr = {};
 tr.from.arr.or = s =>{
     let ret = {};
@@ -174,7 +174,7 @@ tr.from.arr.and = s =>{
     return ret;
 }
 
-tr.replace = (x,map)=>{ // just like string.replace, but from map tl('what with;what with')
+let replace = tr.replace = (x,map)=>{ // just like string.replace, but from map tl('what with;what with')
     for(let what in map)
         for(let With in map[what])
             x = x.replace(what,With);
