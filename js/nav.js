@@ -2,36 +2,6 @@
 // You are NOT ALLOWED to modify and/or use this code without author permission
 "use strict";(function(){let nav = drylib.nav = {};
 
-let get_path = (obj,path)=>{
-    if(!path || !path.length)
-        return obj;
-    for (let i=0; i<path.length-1; i++)
-    {
-        let name = path[i];
-        if (typeof obj[name] != 'object')
-            return undefined;
-        else
-            obj = obj[name];
-    }
-    let name = path[path.length-1];
-    return obj[name];
-}
-
-let get_leaf = (obj,path)=>{
-    if(!path || !path.length)
-        return obj;
-    for (let i=0; i<path.length-1; i++)
-    {
-        let name = path[i];
-        if (typeof obj[name] != 'object')
-            return obj[name];
-        else
-            obj = obj[name];
-    }
-    let name = path[path.length-1];
-    return obj[name];
-}
-
 let proxy = nav.proxy = (root, fake_root, fake, path)=>{
     // allows to build virtual path using dot and then create it with assignment to leaf
     // root cannot be removed from object tree after proxy is created, but any node in fake path can
@@ -54,9 +24,6 @@ let proxy = nav.proxy = (root, fake_root, fake, path)=>{
             if (typeof c != 'object')
                 return c;
             return proxy(root, fake_root, c, [...path, name]);
-        },
-        val: ()=>{
-            return get_path(root,path);
         },
         set: function(target, property, value, receiver) {
             let real = root;
