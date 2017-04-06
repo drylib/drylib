@@ -25,6 +25,8 @@ val.compare = (a,b)=>{
 
 let is = val.is = {};
 
+is.obj = x => $.isPlainObject(x);
+                         
 is.primitive = x => false
         ||x === undefined
         ||x === null
@@ -113,11 +115,15 @@ is.sys = x => false // true if x is system (non user-defined) object
     assert(()=>9 && val.compare('abc','ab') == 1);
     assert(()=>10 && val.compare('','') == 0);
     assert(()=>11 && val.compare('',NaN) == 1);
-    assert(()=>12 && val.is.primitive(NaN));
-    assert(()=>13 && val.is.primitive(5));
-    assert(()=>14 && val.is.primitive(new Number(5)));
-    assert(()=>15 && val.is.primitive(new String('abc')));
-    assert(()=>16 && !val.is.primitive({}));
+    assert(()=>12.1 && val.is.obj({}));
+    assert(()=>12.2 && !val.is.obj([]));
+    assert(()=>12.3 && !val.is.obj(1));
+    assert(()=>12.4 && !val.is.obj(''));
+    assert(()=>13.1 && val.is.primitive(NaN));
+    assert(()=>13.2 && val.is.primitive(5));
+    assert(()=>13.3 && val.is.primitive(new Number(5)));
+    assert(()=>13.4 && val.is.primitive(new String('abc')));
+    assert(()=>13.5 && !val.is.primitive({}));
     assert(()=>17 && !val.is.str({}));
     assert(()=>18 && val.is.str('abc') && val.is.str(new String('abc')));
     assert(()=>19.1 && val.is.sys(new Map()));
