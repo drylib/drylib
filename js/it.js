@@ -131,6 +131,22 @@ it.collect = function*(srcs){// collect incoming streams into outgoing stream
     }
 }
 
+it.rep = function*(n){
+    for(let i = 0; i < n; i++)
+        yield i;
+}
+
+
+it.padEnd = function*(src,n){
+    let i = 0;
+    for(let item of src){
+        yield item;
+        i++;
+    }
+    while(i++ < n)
+        yield undefined;
+}
+
 
 { // unit tests
     let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;

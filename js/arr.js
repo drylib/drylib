@@ -30,6 +30,22 @@ arr.compare = (x,y)=>{
     return 0;
 }
 
+arr.rep = function(size,filler){
+    let ret = new Array(size);
+    ret.fill(filler);
+    return ret;
+}
+
+arr.padCutEnd = function(a,size,filler){
+    let diff = n - a.length;
+    if(diff <= 0)
+         a.splice(n);
+    else
+        [].push.apply(a, arr.rep(diff,filler));
+    return a;
+}
+
+
 
 {// unit tests
     let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;

@@ -1,14 +1,14 @@
 // Copyright (c) 2016 drylib.com - All rights reserved. Terms are in drylib.js
 // You are NOT ALLOWED to modify and/or use this code without author permission
 "use strict";(function(){let tr = drylib.tr; let tl = drylib.tl;
-    for (let tag in tl('ul,ol,li,div,span,tbl,tr,td,thead,tfoot,th,tf,a,img,iframe,sel,opt,btn,area,input'))
+    for (let tag in tl('ul,ol,li,div,span,tbl,tr,td,thead,tfoot,tbody,th,tf,a,img,iframe,sel,opt,btn,area,input'))
     for (let type in tag!='input'?{'':''}:tl('checkbox,radio,submit,reset,text,password,file,hidden'))
     for (let pos in tl(',prepend,before,after'))
     {
-        jQuery.prototype[(type?'input'+type.toProperCase():tag) + pos.toProperCase()] = (cls,txt)=>{
+        jQuery.prototype[(type?'input'+type.toProperCase():tag) + pos.toProperCase()] = function(cls,txt){
             let full_tag = tr.replace(tag, tl('tbl table;sel select;opt option;btn button;area textarea'));
             let ret;
-            this.each(()=>{
+            $(this).each(function(){
                 let c = $('<'+full_tag+'/>');
                 if(cls)
                     c.addClass(cls);
@@ -31,7 +31,7 @@
                          
 jQuery.prototype.ohtml = function(){
   var ret='';
-  this.each(function(){
+  $(this).each(function(){
     ret += '\r\n' + this.outerHTML;
   });
   return ret;
