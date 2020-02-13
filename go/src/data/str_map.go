@@ -8,12 +8,6 @@ type StrPair struct {
 	Key, Val string
 }
 
-type IStrMap interface {
-	Add(string, string)
-	Remove(string) string
-	It() <-chan StrPair
-}
-
 func (this StrMap) Add(key, val string) {
 	if this.data == nil {
 		this.data = make(map[string]string)
