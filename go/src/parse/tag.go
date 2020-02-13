@@ -99,7 +99,7 @@ func Pairs(src [][]Token, sep string) [][]string {
 }
 
 func Map(s string) map[string]string {
-	list := Pairs(Split(Tokens(s), ","), "=")
+	list := Pairs(Split(Tokens(s), " "), ":")
 	ret := make(map[string]string)
 	for _, pair := range list {
 		ret[pair[0]] = pair[1]
