@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"queue"
+	"github.com/drylib/drylib/go/src/queue"
 )
 
 type intQueue struct {

@@ -1,10 +1,10 @@
 // Package main implements unit tests for gtree package
-package tr_test
+package tests
 
 import (
 	"testing"
 
-	"gtree"
+	"github.com/drylib/drylib/go/src/gtree"
 )
 
 // TestA tests one node with node.Add("a")

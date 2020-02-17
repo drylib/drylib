@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"gtree"
+	"github.com/drylib/drylib/go/src/gtree"
 )
 
 func main() {

@@ -1,10 +1,10 @@
 // Package main implements unit tests for queue package
-package queue_test
+package tests
 
 import (
 	"testing"
 
-	"queue"
+	"github.com/drylib/drylib/go/src/queue"
 )
 
 type x struct {
