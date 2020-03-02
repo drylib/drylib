@@ -27,3 +27,4 @@ _testmain.go
 *.test
 *.prof
 go/src/tr/dbg/debug
+demo/packages
