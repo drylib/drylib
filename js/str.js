@@ -7,16 +7,16 @@ String.prototype.toProperCase=function(){
     return this.substring(0,1).toUpperCase()+this.substring(1).toLowerCase();
 }
 
-char.codes = {
+char.code_ = {
 };
                          
 for(let c of 'azAZ'.split(''))
-    char.codes[c] = c.charCodeAt(0);
-char.codes.capDiff = char.codes.a - char.codes.A;
+    char.code_[c] = c.charCodeAt(0);
+char.code_.capDiff = char.code_.a - char.code_.A;
                          
 char.toUpperCase = c =>
     c >= 'a' && c <= 'z'
-        ? String.fromCharCode(c.charCodeAt(0) - char.codes.capDiff)
+        ? String.fromCharCode(c.charCodeAt(0) - char.code_.capDiff)
         : c
 ;
 

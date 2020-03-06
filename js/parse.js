@@ -4,14 +4,14 @@
 let dbg = drylib.dbg;
 
 { // check if parentheses are balanced
-    let lefts = {
+    let left_ = {
         '(': ')',
         '{': '}',
         '[': ']',
     };
-    let rights = {};
-    for (let left in lefts)
-        rights[lefts[left]] = left;
+    let right_ = {};
+    for (let left in left_)
+        right_[left_[left]] = left;
         
     parse.bal = s => {
         let need = [];
@@ -19,9 +19,9 @@ let dbg = drylib.dbg;
         while (i < s.length)
         {
             c = s[i];
-            if (lefts[c])
-                need.push(lefts[c]);
-            else if (rights[c] && need.pop() != c)
+            if (left_[c])
+                need.push(left_[c]);
+            else if (right_[c] && need.pop() != c)
                 return false;
             i++;
         }

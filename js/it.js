@@ -8,17 +8,17 @@ it.iterator = x =>{ // returns iterator from iterable or iterator
     return x[Symbol.iterator]();
 }
 
-it.its = its =>{ // returns array of iterators from array of iterables or iterators
-    return its.map(x => it.iterator(x));
+it.it_ = it_ =>{ // returns array of iterators from array of iterables or iterators
+    return it_.map(x => it.iterator(x));
 }
              
-it.and = function*(its){ // its are iterables or iterators
+it.and = function*(it_){ // it_ are iterables or iterators
     // iterate in parallel producing vector of current elements on each iteration until at least one iterator is done
-    its = it.its(its); // getting rid of iterables, keeping only iterators
-    let ret = new Array(its.length);
+    it_ = it.it_(it_); // getting rid of iterables, keeping only iterators
+    let ret = new Array(it_.length);
     while (true){
         let i = 0;
-        for (let stream of its){
+        for (let stream of it_){
             let e = stream.next();
             if (e.done)
                 return;
@@ -28,15 +28,15 @@ it.and = function*(its){ // its are iterables or iterators
     };
 }
 
-it.or = function*(its){ // its are iterables or iterators
+it.or = function*(it_){ // it_ are iterables or iterators
     // iterate in parallel producing vector of current elements on each iteration until all iterators are done
     // for those iterators that are done sooner it will return undefined vector elements 
-    its = it.its(its); // getting rid of iterables, keeping only iterators
-    let ret = new Array(its.length);
+    it_ = it.it_(it_); // getting rid of iterables, keeping only iterators
+    let ret = new Array(it_.length);
     while (true){
         let i = 0;
         let done = true;
-        for (let stream of its){
+        for (let stream of it_){
             let e = stream.next();
             if (!e.done)
                 done = false;
@@ -48,9 +48,9 @@ it.or = function*(its){ // its are iterables or iterators
     };
 }
 
-it.seq = function*(its){ // its are iterables or iterators
+it.seq = function*(it_){ // it_ are iterables or iterators
     // concatenate sequences
-    for (let stream of it.its(its))
+    for (let stream of it.it_(it_))
         yield* stream;
 }
 
@@ -106,20 +106,20 @@ it.spy = function*(stream, fn){// spy on stream
     }
 }
 
-it.tee = function(src, dsts){// dup incoming stream into multiple outgoing streams
+it.tee = function(src, dst_){// dup incoming stream into multiple outgoing streams
     for(let e of it.iterator(src))
-        for(let dst of dsts)
+        for(let dst of dst_)
             dst.next(e);
-    for(let dst of dsts)
+    for(let dst of dst_)
         dst.return(); // causes dst generator to yield {value=undefined, done=true}
 }
 
-it.collect = function*(srcs){// collect incoming streams into outgoing stream
-    srcs = Array.from(srcs, x => it.iterator(x));
+it.collect = function*(src_){// collect incoming streams into outgoing stream
+    src_ = Array.from(src_, x => it.iterator(x));
     let done = false;
     while(!done){
         done = true;
-        for(let src of srcs)
+        for(let src of src_)
         {
             let ret = src.next();
             if(!ret.done)
