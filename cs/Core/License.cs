@@ -16,8 +16,8 @@
  License is automatically GRANTED upon network confirmation of transaction
  with license fees. Transactions usually become publicly visible on one of the
  following websites:
-                              for Bitcoin payments: https://blockchain.info
-                              for Ethereum payments: https://www.etherchain.org
+                              for Bitcoin payments: https://blockchain.com
+                              for Ethereum payments: https://etherscan.io
  
  You must retain control of your Bitcoin or Ethereum account for as long as you
  use this library. If you cannot prove ownership of your Bitcoin or Ethereum
@@ -28,7 +28,7 @@
  That includes, for example, execution for evaluation or development purposes.
  Reading the source code (or compiling for reading) is not considered usage.
 
- License costs 0.0014 BTC (or 0.033 ETH) per day per human user per machine.
+ License costs 0.00085 BTC (or 0.033 ETH) per day per human user per machine.
  If one user configures that software to run on multiple machines then
  daily license fee is multiplied by number of machines.
  If one machine is used or serviced by multiple human users then daily license
