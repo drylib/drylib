@@ -79,7 +79,7 @@ is.sys = x => false // true if x is system (non user-defined) object
         //we want to have pure Object so we test for everything except Object ||x instanceof Object
         //||x instanceof ParallelArray
         ||x instanceof Promise
-        ||x instanceof Proxy
+        //||x instanceof Proxy
         //||x instanceof RangeError
         //||x instanceof ReferenceError
         //||x instanceof Reflect
