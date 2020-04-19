@@ -1,6 +1,6 @@
 ﻿var drylib = {}; drylib.dl = drylib; drylib.LICENSE = `
 /*******************************************************************************
-        Copyright (c) 2015,2016 drylib.com - All rights reserved.
+    Copyright (c) 2015,2016,2020 drylib.com - All rights reserved.
 
     Copyright Holder (Author) addresses for payments and messages:
       Bitcoin payment and messages 17pYSowGmou3Qc9LhZyjXHhwpWLrmjB9MC
