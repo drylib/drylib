@@ -101,6 +101,11 @@ is.sys = x => false // true if x is system (non user-defined) object
         ||x instanceof WeakSet
 ;
 
+is.it = x => {
+    if (x == null) return false;
+    return typeof x[Symbol.iterator] === 'function';
+};
+
 {// unit tests
     let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
 
@@ -134,4 +139,7 @@ is.sys = x => false // true if x is system (non user-defined) object
     assert(()=>19.6 && val.is.sys(Date.now()));
     assert(()=>19.7 && val.is.sys(new Date()));
     assert(()=>19.8 && val.is.sys([]));
+    assert(()=>20.1 && val.is.it([]));
+    assert(()=>20.2 && !val.is.it({}));
+    assert(()=>20.3 && !val.is.it(1));
 }})();

@@ -8,6 +8,12 @@ it.iterator = x =>{ // returns iterator from iterable or iterator
     return x[Symbol.iterator]();
 }
 
+it.size = s =>{
+    let size = 0
+    for(let e of s) size++
+    return size
+}
+
 it.it_ = it_ =>{ // returns array of iterators from array of iterables or iterators
     return it_.map(x => it.iterator(x));
 }
@@ -200,5 +206,7 @@ it.padEnd = function*(src,n){
     }
 
     assert(()=>8 && it.compare(it.rev([1,2,3]),[3,2,1]).val == 0);
+
+    assert(()=>9 && it.size([1,2,3]) == 3);
 }
 })()

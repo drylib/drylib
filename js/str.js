@@ -2,6 +2,7 @@
 // You are NOT ALLOWED to modify and/or use this code without author permission
 "use strict";(function(){let str = drylib.str = {}; let char = drylib.char = {};
 let dbg = drylib.dbg;
+let val = drylib.val;
 
 String.prototype.toProperCase=function(){
     return this.substring(0,1).toUpperCase()+this.substring(1).toLowerCase();
@@ -41,6 +42,37 @@ str.it.toUpperCase = function*(it){
     }
 }
 
+str.it.join = function(it,sep){
+    let ret = ''
+    if(!sep) sep = ''
+    let first = true
+    if(val.is.it(it))
+        for(let s of it){
+            if(first)
+                first = false
+            else
+                ret += sep
+            ret += s
+        }
+    else if(val.is.obj(it))
+        for(let s in it){
+            if(first)
+                first = false
+            else
+                ret += sep
+            ret += s
+        }
+    else
+        ret = it
+    return ret
+}
+
+str.json = function(o){
+    let ret = JSON.stringify(o)
+    ret = ret.replace(/"([a-zA-Z0-9_])":/g,'$1:')
+    return ret
+}
+
 
 
 {// unit tests
@@ -61,5 +93,8 @@ str.it.toUpperCase = function*(it){
         let res3 = rx.exec(s);
         assert(()=>2.3 && res3 === null);
     }
+    assert(()=>3.1 && str.json({a:1,b:"2"}) == '{a:1,b:"2"}');
+    assert(()=>4.1 && str.it.join([1,2,3],'-') == '1-2-3');
+    assert(()=>4.2 && str.it.join({a:1,b:2,c:3},'-') == 'a-b-c');
 }
 })()
