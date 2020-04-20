@@ -4,7 +4,7 @@ let it = drylib.it, arr = drylib.arr, str = drylib.str, tr = drylib.tr, tl = dry
 
 bot.run = ()=>{
     let test=false
-    let limit = {msg: 200}
+    let limit = {msg: 500}
     let cfg = {dbg:false,reconn:true}
 
     let url="testnet"
@@ -37,6 +37,13 @@ bot.run = ()=>{
       else
         btn.ui.text('Subscribe')
     })
+
+    let total
+    {
+      let ui = $('body').span('total')
+      ui.text('Total:')
+      total = $('body').span('total').text('0')
+    }
 
     let tbl = $('body').tbl('chat');
     let head = tbl.thead().tr();
@@ -109,6 +116,7 @@ bot.run = ()=>{
           d.bot = msg.fromBot
           d.admin = d.k.startsWith('BitMEX')
           d.count++
+          total.text(Number(total.text())+1)
           save(u)
           upd(u)
         }
@@ -122,7 +130,7 @@ bot.run = ()=>{
           let ui = u.ui
           let msg = d.msg.replace(/^[/]position/gi,'')
           msg  = msg.replace(/:bitmex:/gi,'')
-          msg = msg.substring(0,limit.msg)
+          //msg = msg.substring(0,limit.msg)
           let date = new Date(d.date)
           //if(ui){ui.row.detach();ui=null}
 
