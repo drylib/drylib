@@ -4,8 +4,13 @@ body {
     > .chat {
         border:thin solid;
         > tbody > tr {
+            > td.time,td.btn {white-space:nowrap;}
             > td.text {
                 font-size:smaller;
+            }
+            > td.btn {
+                * {background-color:grey;}
+                .on {background-color:green;}
             }
         }
     }
