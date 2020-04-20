@@ -10,38 +10,31 @@ bot.run = ()=>{
     let url="testnet"
     if(!test) url = "www"
 
-    {
-      let refresh = {ui:$('body').btn('refresh'), on: false }
-      refresh.ui.text('Refresh')
-      refresh.ui.click(function(){
-        mex.close()
-        u_.map.clear()
-        location.reload()
-      })
-    }
-    {
-      $('body').btn('dbg').text('Debug').click(function(){$(this).clsOnoff(cfg.dbg = !cfg.dbg);})
-    }
-    {
-      $('body').btn('reconn').text('Reconnect').click(function(){$(this).clsOnoff(cfg.reconn = !cfg.reconn);})
-    }
-
-    let btn = {ui:$('body').btn(), on: false }
-    btn.ui.text("Subscribe")
-    btn.ui.prop('disabled', true)
-    btn.ui.click(function(){
-      mex.send(str.json({op: btn.ui.text().toLowerCase(),args: ["chat"]}));
-      btn.on = !btn.on
-      if(btn.on)
-        btn.ui.text('Unsubscribe')
-      else
-        btn.ui.text('Subscribe')
+    $('body').btn('refresh','Refresh').click(function(){
+      mex.close()
+      u_.map.clear()
+      location.reload()
     })
 
-    let total
-    {
-      let ui = $('body').span('total')
-      ui.text('Total:')
+    $('body').btn('dbg','Debug').syncClick(function(){this.clsOnoff(cfg.dbg);}, function(){cfg.dbg = !cfg.dbg;})
+    $('body').btn('reconn','Reconnect').syncClick(function(){this.clsOnoff(cfg.reconn);}, function(){cfg.reconn = !cfg.reconn;})
+
+    let subscribe = {ui:$('body').btn(), on: false }
+    subscribe.ui.prop('disabled', true)
+    subscribe.ui.syncClick(
+      function(){
+        if(subscribe.on)
+          this.text('Unsubscribe')
+        else
+          this.text('Subscribe')
+      },
+      function(){
+        mex.send(str.json({op: subscribe.ui.text().toLowerCase(),args: ["chat"]}));
+        subscribe.on = !subscribe.on
+    })
+
+    let total;{
+      let ui = $('body').span('total','Total')
       total = $('body').span('total','0')
     }
 
@@ -71,8 +64,8 @@ bot.run = ()=>{
           mex = new WebSocket("wss://" + url + ".bitmex.com/realtime");
           mex.onopen = function (ev) {
             console.log('Connected',ev);
-            btn.ui.prop('disabled', false);
-            btn.ui.click();
+            subscribe.ui.prop('disabled', false);
+            subscribe.ui.click();
           }
           mex.onclose = function(ev) {
             console.log('Socket disconnected');
