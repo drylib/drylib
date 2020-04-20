@@ -6,64 +6,67 @@ let it = drylib.it;let str = drylib.str;
 
 let safekey = (key) => key.replace('/-/', '/--/');
 
-ld.map = (mapkey)=>{
-    let map = {k: mapkey, d:{}}
-    map.set = (k,val)=>{return ld.set(map,k,val)}
-    map.get = (k)=>{return ld.get(map,k)}
-    map.del = (k)=>{return ld.del(map,k)}
-    map[Symbol.iterator] = function*(){yield* ld.it(map)}
-    map.clear = ()=>{return ld.clear(map)}
-    map.size = ()=>{return it.size(map)}
-    return map
-};
 
-let savek_ = map => {
-    let k_ = []
-    for(let k in map.d) k_.push(k)
-    localStorage.setItem(safekey(map.k), str.json(k_))
-}
+ld.map = (mapkey,save,load)=>{ // save converts to serializable format, load - to deserialized format
+    if(!save)save = v=>v;
+    if(!load)load = v=>v;
+    let map = {k: mapkey}
+    let d = {}
 
-ld.set = (map,key,val)=>{
-    if(map.d[key] !== val){
-        map.d[key] = val
-        localStorage.setItem(safekey(map.k) + '/-/' + safekey(key), str.json(val))
+    let savek_ = () => {
+        let k_ = []
+        for(let k in d) k_.push(k)
+        localStorage.setItem(safekey(map.k), JSON.stringify(k_))
+    }
+    
+    map.set = (k,val)=>{
+        d[k] = val
+        localStorage.setItem(safekey(map.k) + '/-/' + safekey(k), JSON.stringify(save(val)))
         savek_(map)
-    }
-    return val
-};
+        return val
+    };        
 
-ld.get = (map,key)=>{
-    let ret = map.d[key]
-    if(!ret) {
-        let val = localStorage.getItem(safekey(map.k) + '/-/' + safekey(key))
-        if (val) ret = map.d[key] = JSON.parse(val)
-    }
-    return ret
-};
+    map.get = (k)=>{
+        let ret = d[k]
+        if(!ret) {
+            let val = localStorage.getItem(safekey(map.k) + '/-/' + safekey(k))
+            if (val){
+                try{val = JSON.parse(val)}catch(e){dbg.log(['ld','Failed to parse', map.k, k, val])}
+                ret = load(val)
+                d[k] = ret
+            }
+        }
+        return ret
+    };
 
-ld.del = (map,key)=>{
-    let ret = ld.get(map,key)
-    delete map.d[key]
-    localStorage.removeItem(safekey(map.k) + '/-/' + safekey(key))
-    savek_(map)
-    return ret
-};
+    map.del = (k)=>{
+        let ret = map.get(k)
+        delete d[k]
+        localStorage.removeItem(safekey(map.k) + '/-/' + safekey(k))
+        savek_(map)
+        return ret
+    };
 
+    map[Symbol.iterator] = function*(){
+        let k_ = localStorage.getItem(safekey(map.k))
+        if(!k_) return
+        k_ = JSON.parse(k_)
+        for(let k of k_)
+            yield {k:k,v:map.get(k)}
+    };
 
-ld.it = function*(map){
-    let k_ = localStorage.getItem(safekey(map.k))
-    if(!k_) return
-    k_ = JSON.parse(k_)
-    for(let k of k_)
-        yield {k:k,v:ld.get(map,k)}
-};
+    map.clear = ()=>{
+        for(let e of map)
+            map.del(e.k)
+        localStorage.removeItem(safekey(map.k))
+        return map
+    };
 
-ld.clear = (map)=>{
-    for(let e of map)
-        map.del(e.k)
-    localStorage.removeItem(safekey(map.k))
+    map.size = ()=>{return it.size(map)}
+
     return map
 };
+
 
 
 {// unit tests
@@ -89,7 +92,7 @@ ld.clear = (map)=>{
     assert(()=>  5.4 && it.size(m) === 2)
 
     //console.log(drylib.str.json(Array.from(m)))
-    assert(()=>  5.5 && drylib.str.json(Array.from(m)) === '[{k:"b",v:"1"},{k:"c",v:{a:1}}]')
+    assert(()=>  5.5 && drylib.str.jsonView(Array.from(m)) === '[{k:"b",v:"1"},{k:"c",v:{a:1}}]')
 
     assert(()=>  5.4 && m.clear().size() === 0)
     m.clear()

@@ -69,6 +69,11 @@ str.it.join = function(it,sep){
 
 str.json = function(o){
     let ret = JSON.stringify(o)
+    //ret = ret.replace(/"([a-zA-Z0-9_])":/g,'$1:')
+    return ret
+}
+str.jsonView = function(o){
+    let ret = JSON.stringify(o)
     ret = ret.replace(/"([a-zA-Z0-9_])":/g,'$1:')
     return ret
 }
@@ -93,7 +98,7 @@ str.json = function(o){
         let res3 = rx.exec(s);
         assert(()=>2.3 && res3 === null);
     }
-    assert(()=>3.1 && str.json({a:1,b:"2"}) == '{a:1,b:"2"}');
+    assert(()=>3.1 && str.jsonView({a:1,b:"2"}) == '{a:1,b:"2"}');
     assert(()=>4.1 && str.it.join([1,2,3],'-') == '1-2-3');
     assert(()=>4.2 && str.it.join({a:1,b:2,c:3},'-') == 'a-b-c');
 }
