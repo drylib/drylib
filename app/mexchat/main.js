@@ -1,6 +1,6 @@
 "use strict";(function(){let bot = {};
 let dbg = drylib.dbg; let assert = dbg.assert; let log = dbg.log; dbg.assert.log = true; dbg.off = false;
-let it = drylib.it, arr = drylib.arr, str = drylib.str;
+let it = drylib.it, arr = drylib.arr, str = drylib.str, tr = drylib.tr, tl = drylib.tl;
 
 bot.run = ()=>{
     let test=false
@@ -69,7 +69,8 @@ bot.run = ()=>{
             }
           }
         }
-        connect()
+        if(!test)
+          connect()
 
 
         function chat(chunk){
@@ -83,8 +84,8 @@ bot.run = ()=>{
         }
 
         for(let u of u_.map){
-          //dbg.log(u)
           if(u.v){
+            //dbg.log(u.v)
             if(u.v.ui) delete u.v.ui
             upd(u.v)
           }
@@ -93,17 +94,31 @@ bot.run = ()=>{
         function upd(u){
           let d = u.d
           let ui = u.ui
-          if(!ui){
-            ui = u.ui = {row: u_.ui.tr()}
-            ui.time = ui.row.td('time').css("white-space", "nowrap")
-            ui.row.td('name').text(d.k)
-            ui.text = ui.row.td('text')
-            ui.count = ui.row.td('count')
-          }
-          ui.time.text(new Date(d.date).toLocaleTimeString())
           let msg = d.msg.replace(/^[/]position/gi,'')
           msg  = msg.replace(/:bitmex:/gi,'')
           msg = msg.substring(0,limit.msg)
+          let date = new Date(d.date)
+          if(ui){ui.row.detach();ui=null}
+
+          if(!ui){
+            ui = u.ui = {}
+            if(msg.match(/position|XBTUSD|ETHUSD/gi) || d.fav || tr.fit(tl(d.k), tl('REKT')))
+              ui.row = u_.ui.trPrepend()
+            else
+              ui.row = u_.ui.tr()
+            ui.time = ui.row.td('time').css("white-space", "nowrap")
+            ui.u = ui.row.td('name').btn().text(d.k)
+            function updu(){ui.u.css('color',d.fav?'green':'gray')}
+            updu()
+            ui.u.click(function(){
+              d.fav = !d.fav
+              u_.map.set(d.k, u)
+              updu()
+            })
+            ui.text = ui.row.td('text')
+            ui.count = ui.row.td('count')
+          }
+          ui.time.text(date.toLocaleTimeString())
           ui.text.text(msg)
           ui.count.text(d.count)
         }
@@ -116,7 +131,6 @@ bot.run = ()=>{
           }
           //console.log(msg)
           let u = u_.map.get(msg.user) || {d:{k:msg.user, count:0}}
-          delete msg.user
           u.d.msg = msg.message
           u.d.date = new Date(msg.date)
           u.d.count++
