@@ -37,10 +37,11 @@ jQuery.prototype.ohtml = function(){
   return ret;
 }
 
-jQuery.prototype.clsOnoff = function(name,on){
+jQuery.prototype.clsOnoff = function(on,name){
+    if(!name) name = 'on'
     let me = $(this)
     if(on) me.addClass(name); else me.removeClass(name)
-    return $(this);
+    return on;
   }
   
 
