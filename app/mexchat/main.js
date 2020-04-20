@@ -42,7 +42,16 @@ bot.run = ()=>{
     {
       let ui = $('body').span('total')
       ui.text('Total:')
-      total = $('body').span('total').text('0')
+      total = $('body').span('total','0')
+    }
+
+    let u_ = {
+      map: drylib.ld('user_', v=>{return v.d}, v=>{return {d:v}})
+    };
+    {
+      $('body').btn('export').text('Export').click(function(){
+        $('body').inputText('export',u_.map.export())
+      })
     }
 
     let tbl = $('body').tbl('chat');
@@ -52,10 +61,8 @@ bot.run = ()=>{
     head.th('btn').text('Buttons');
     head.th('text').text('Text')
     head.th('count').text('#');
-    let u_ = {
-      ui:tbl.tbody('user_'),
-      map: drylib.ld.map('user_', v=>{return v.d}, v=>{return {d:v}})
-    };
+    u_.ui = tbl.tbody('user_');
+
     let mex
     let stop = false;
 
@@ -116,6 +123,11 @@ bot.run = ()=>{
           d.bot = msg.fromBot
           d.admin = d.k.startsWith('BitMEX')
           d.count++
+          if(d.msg.match(/position/gi)){
+            d.pos = {msg:d.msg, date:d.date}
+          }
+
+
           total.text(Number(total.text())+1)
           save(u)
           upd(u)
@@ -128,7 +140,9 @@ bot.run = ()=>{
         function upd(u){
           let d = u.d
           let ui = u.ui
-          let msg = d.msg.replace(/^[/]position/gi,'')
+
+          let msg = d.msg
+          msg = msg.replace(/^[/]position/gi,'')
           msg  = msg.replace(/:bitmex:/gi,'')
           //msg = msg.substring(0,limit.msg)
           let date = new Date(d.date)
@@ -150,7 +164,7 @@ bot.run = ()=>{
               && (false
                 || msg.match(/position/gi)
                 || d.fav || d.whale || d.bot || d.admin
-                || tr.fit(tl(d.k), tl('REKT'))
+                //|| tr.fit(tl(d.k), tl('REKT'))
               )
             );
 

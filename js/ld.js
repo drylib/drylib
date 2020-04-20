@@ -1,18 +1,18 @@
 // Copyright (c) 2020 drylib.com - All rights reserved. Terms are in drylib.js
 // You are NOT ALLOWED to modify and/or use this code without author permission
-"use strict";(function(){ let ld = drylib.ld = {};
+"use strict";(function(){
 let dbg = drylib.dbg; let log = drylib.log; let err = drylib.err; // including diagnostics
 let it = drylib.it;let str = drylib.str;
 
 let safekey = (key) => key.replace('/-/', '/--/');
 
 
-ld.map = (mapkey,save,load)=>{ // save converts to serializable format, load - to deserialized format
+let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable format, load - to deserialized format
     if(!save)save = v=>v;
     if(!load)load = v=>v;
     let map = {k: mapkey}
     let d = {}
-
+ 
     let savek_ = () => {
         let k_ = []
         for(let k in d) k_.push(k)
@@ -20,11 +20,12 @@ ld.map = (mapkey,save,load)=>{ // save converts to serializable format, load - t
     }
     
     map.set = (k,val)=>{
+        let exists = d[k]
         d[k] = val
         localStorage.setItem(safekey(map.k) + '/-/' + safekey(k), JSON.stringify(save(val)))
-        savek_(map)
+        if(!exists) savek_(map)
         return val
-    };        
+    };
 
     map.get = (k)=>{
         let ret = d[k]
@@ -64,6 +65,15 @@ ld.map = (mapkey,save,load)=>{ // save converts to serializable format, load - t
 
     map.size = ()=>{return it.size(map)}
 
+    map.export = ()=>{
+        let ret = []
+
+        for(let e of map){
+            ret.push({k:e.k,v:save(e.v)})
+        }
+        return JSON.stringify(ret)
+    }
+
     return map
 };
 
@@ -72,7 +82,7 @@ ld.map = (mapkey,save,load)=>{ // save converts to serializable format, load - t
 {// unit tests
     let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
 
-    let m = ld.map('test')
+    let m = ld('test')
     assert(()=>  1.1 && m.k == 'test')
     
     assert(()=>  2.1 && m.set('a',1) === 1)
@@ -91,14 +101,14 @@ ld.map = (mapkey,save,load)=>{ // save converts to serializable format, load - t
     //console.log(it.size(m))
     assert(()=>  5.4 && it.size(m) === 2)
 
-    //console.log(drylib.str.json(Array.from(m)))
-    assert(()=>  5.5 && drylib.str.jsonView(Array.from(m)) === '[{k:"b",v:"1"},{k:"c",v:{a:1}}]')
+    assert(()=>  5.5 && drylib.str.jsonView(Array.from(m)) === '[{k:"b",v:"1"},{k:"c",v:{a:1}}]');//console.log(drylib.str.json(Array.from(m)))
+    assert(()=>  5.6 && m.export() === '[{"k":"b","v":"1"},{"k":"c","v":{"a":1}}]');//console.log(m.export())
 
-    assert(()=>  5.4 && m.clear().size() === 0)
+    assert(()=>  5.7 && m.clear().size() === 0)
     m.clear()
 
     if(drylib.dbg.test){
-        let m2 = ld.map('test2')
+        let m2 = ld('test2')
         if(!m2.get('init')){
             m2.set('init',true)
             location.reload()
