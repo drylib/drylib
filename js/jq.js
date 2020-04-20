@@ -36,7 +36,13 @@ jQuery.prototype.ohtml = function(){
   });
   return ret;
 }
-                        
+
+jQuery.prototype.clsOnoff = function(name,on){
+    let me = $(this)
+    if(on) me.addClass(name); else me.removeClass(name)
+    return $(this);
+  }
+  
 
 {// unit tests
     let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
