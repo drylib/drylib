@@ -1,13 +1,33 @@
 "use strict";(function(){let bot = {};
 let dbg = drylib.dbg; let assert = dbg.assert; let log = dbg.log; dbg.assert.log = true; dbg.off = false;
-let it = drylib.it, arr = drylib.arr;
+let it = drylib.it, arr = drylib.arr, str = drylib.str;
 
 bot.run = ()=>{
     let test=false
-    const height = 23;
+    let limit = {msg: 200}
 
     let url="testnet"
     if(!test) url = "www"
+
+    let refresh = {ui:$('body').btn(), on: false }
+    refresh.ui.text('Refresh')
+    refresh.ui.click(function(){
+      mex.close()
+      u_.map.clear()
+      location.reload()
+    })
+
+    let btn = {ui:$('body').btn(), on: false }
+    btn.ui.text("Subscribe")
+    btn.ui.prop('disabled', true)
+    btn.ui.click(function(){
+      mex.send(str.json({op: btn.ui.text().toLowerCase(),args: ["chat"]}));
+      btn.on = !btn.on
+      if(btn.on)
+        btn.ui.text('Unsubscribe')
+      else
+        btn.ui.text('Subscribe')
+    })
 
     let tbl = $('body').tbl('chat');
     let head = tbl.thead().tr();
@@ -15,65 +35,94 @@ bot.run = ()=>{
     head.th('name').text('Name');
     head.th('text').text('Text');
     head.th('count').text('#');
-    let user_ = {ui:tbl.tbody('user_'),map:{}};
+    let u_ = {
+      ui:tbl.tbody('user_'),
+      map: drylib.ld.map('user_', v=>{return v.d}, v=>{return {d:v}})
+    };
     let mex
     let stop = false;
- 
+
     bot.init = ()=>{
-        mex = new WebSocket("wss://" + url + ".bitmex.com/realtime");
-        
-        mex.onmessage = function(ev){
-          //console.log(ev.data);
-          var msg = JSON.parse(ev.data)
-          //console.log(msg);
-          if(msg.table == 'chat'){
-              if(msg.action == 'insert'){
-                chat(msg)
+        let connect = ()=>{
+          mex = new WebSocket("wss://" + url + ".bitmex.com/realtime");
+          mex.onopen = function (ev) {
+            console.log('Connected',ev);
+            btn.ui.prop('disabled', false);
+            btn.ui.click();
+          }
+          mex.onclose = function(ev) {
+            console.log('Socket disconnected');
+            setTimeout(function(){
+              console.log('Reconnecting');
+              connect()
+            }, 3000);
+          };
+  
+          mex.onmessage = function(ev){
+            //console.log(ev.data);
+            var msg = JSON.parse(ev.data)
+            //console.log(msg);
+            if(msg.table == 'chat'){
+                if(msg.action == 'insert'){
+                  chat(msg)
+                }
+            }
+          }
+        }
+        connect()
+
+
+        function chat(chunk){
+            for(let msg of chunk.data){
+              if(msg.channelID == 1){
+                //console.log(msg)
+                //if(msg.message.startsWith('/position'))
+                  pos(msg)
               }
+            }
+        }
+
+        for(let u of u_.map){
+          //dbg.log(u)
+          if(u.v){
+            if(u.v.ui) delete u.v.ui
+            upd(u.v)
           }
         }
 
-        function chat(chunk){            
-              for(let msg of chunk.data){
-                  if(msg.channelID == 1 && msg.message.startsWith('/position')){
-                    if(false && !stop){
-                        stop = true;
-                        mex.send(JSON.stringify(
-                          {
-                            op: "unsubscribe",
-                            args: ["chat"]
-                          }
-                        ));
-                    }
-                    msg.time = new Date(msg.date);
-                    //console.log(msg)
-                    let user = user_.map[msg.user]
-                    if(!user){
-                        user_.map[msg.user] = user = {count:0, ui: {row: user_.ui.tr()}}
-                        user.ui.time = user.ui.row.td('time')
-                        user.ui.row.td('name').text(msg.user)
-                        user.ui.text = user.ui.row.td('text')
-                        user.ui.count = user.ui.row.td('count')
-                        user.init = msg
-                    }
-                    user.last = msg
-                    user.count++
-                    user.ui.time.text(msg.time.toLocaleTimeString())
-                    user.ui.text.text(msg.message)
-                    user.ui.count.text(user.count)
-                }
-              }
+        function upd(u){
+          let d = u.d
+          let ui = u.ui
+          if(!ui){
+            ui = u.ui = {row: u_.ui.tr()}
+            ui.time = ui.row.td('time').css("white-space", "nowrap")
+            ui.row.td('name').text(d.k)
+            ui.text = ui.row.td('text')
+            ui.count = ui.row.td('count')
+          }
+          ui.time.text(new Date(d.date).toLocaleTimeString())
+          let msg = d.msg.replace(/^[/]position/gi,'')
+          msg  = msg.replace(/:bitmex:/gi,'')
+          msg = msg.substring(0,limit.msg)
+          ui.text.text(msg)
+          ui.count.text(d.count)
         }
-        
-        mex.onopen = function (ev) {
-          console.log(ev);
-          let msg = {
-            op: "subscribe",
-            args: ["chat"]
-          };
-        
-          mex.send(JSON.stringify(msg));
-        };
+
+
+        function pos(msg){
+          if(false && !stop){
+            stop = true;
+            mex.send(str.json({op: "unsubscribe",args: ["chat"]}));
+          }
+          //console.log(msg)
+          let u = u_.map.get(msg.user) || {d:{k:msg.user, count:0}}
+          delete msg.user
+          u.d.msg = msg.message
+          u.d.date = new Date(msg.date)
+          u.d.count++
+          u_.map.set(u.d.k, u)
+          upd(u)
+        }
     }
 
     bot.init();
