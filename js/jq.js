@@ -42,8 +42,17 @@ jQuery.prototype.clsOnoff = function(on,name){
     let me = $(this)
     if(on) me.addClass(name); else me.removeClass(name)
     return on;
-  }
+}
   
+jQuery.prototype.syncClick = function(sync,click){
+    let me=$(this)
+    sync.call(me)
+    me.click(function(arg){
+        click.call(this,arg);
+        sync.call(me)
+    })
+    return me;
+}
 
 {// unit tests
     let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
