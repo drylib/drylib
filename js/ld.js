@@ -20,10 +20,12 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
     }
     
     map.set = (k,val)=>{
-        let exists = d[k]
+        let old = d[k]
         d[k] = val
-        localStorage.setItem(safekey(map.k) + '/-/' + safekey(k), JSON.stringify(save(val)))
-        if(!exists) savek_(map)
+        // need null by default because JSON.parse(JSON.stringify(undefined)) gives exception
+        localStorage.setItem(safekey(map.k) + '/-/' + safekey(k), JSON.stringify(save(val)||null))
+        if(map.dbg) console.log('map.set',map.k,k,val,old)
+        if(!old) savek_(map)
         return val
     };
 
@@ -31,8 +33,9 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
         let ret = d[k]
         if(!ret) {
             let val = localStorage.getItem(safekey(map.k) + '/-/' + safekey(k))
+            if(map.dbg) console.log('map.get',map.k,k,val)
             if (val){
-                try{val = JSON.parse(val)}catch(e){dbg.log(['ld','Failed to parse', map.k, k, val])}
+                try{val = JSON.parse(val||null)}catch(e){dbg.log(['ld.get', map.k, k, 'Failed to parse', val])}
                 ret = load(val)
                 d[k] = ret
             }
@@ -42,6 +45,7 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
 
     map.del = (k)=>{
         let ret = map.get(k)
+        if(map.dbg) console.log('map.del',map.k,k,ret)
         delete d[k]
         localStorage.removeItem(safekey(map.k) + '/-/' + safekey(k))
         savek_(map)
@@ -80,13 +84,13 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
 
 
 {// unit tests
-    let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
+    let dbg = drylib.dbg; let assert = dbg.assert, eq = dbg.eq; //dbg.assert.log = true;
 
     let m = ld('test')
-    assert(()=>  1.1 && m.k == 'test')
+    eq(()=>  1.1 && m.k, 'test')
     
-    assert(()=>  2.1 && m.set('a',1) === 1)
-    assert(()=>  2.2 && m.set('b','1') === '1')
+    eq(()=>  2.1 && m.set('a',1) , 1)
+    eq(()=>  2.2 && m.set('b','1') , '1')
     assert(()=>  2.3 && m.set('c',{a:1}) .a === 1)
 
     assert(()=>  3.1 && m.get('a') === 1)
@@ -104,7 +108,12 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
     assert(()=>  5.5 && drylib.str.jsonView(Array.from(m)) === '[{k:"b",v:"1"},{k:"c",v:{a:1}}]');//console.log(drylib.str.json(Array.from(m)))
     assert(()=>  5.6 && m.export() === '[{"k":"b","v":"1"},{"k":"c","v":{"a":1}}]');//console.log(m.export())
 
-    assert(()=>  5.7 && m.clear().size() === 0)
+    eq(()=>  5.7 && m.clear().size(), 0)
+    eq(()=>  5.8 && m.set('d',undefined), undefined)
+    eq(()=>  5.9 && JSON.stringify({a:undefined}), '{}') // JSON.parse(JSON.stringify) can't preserve undefined
+    eq(()=>  5.10 && m.get('d'), null) // getting null because JSON.parse(JSON.stringify) can't preserve undefined
+    eq(()=>  5.11 && m.set('e',null), null)
+    eq(()=>  5.12 && m.get('e'), null)
     m.clear()
 
     if(drylib.dbg.test){
@@ -117,4 +126,5 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
             m2.clear()
         }
     }
+
 }})();
