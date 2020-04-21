@@ -4,6 +4,45 @@
 
 dbg.off = false; // users can set dl.dbg.off=true in release mode to avoid running all unit tests at startup
 
+dbg.eq = (fn, val)=>{
+    if (dbg.assert.off || dbg.off)
+        return val;
+    let res;
+    if (typeof fn == 'function')
+        res = fn();
+    else
+        res = fn();
+    let success = (res === val);
+    let msg = '';
+    if (typeof fn == 'function')
+    {
+        let removefn = fn.toString().match(/function.*\{\s*return(.*)\s*\}/i);
+        if(removefn)
+            msg = removefn[1].slice(0,-1);
+        else
+            msg = fn.toString();
+    }
+    if (!success)
+    {
+        if (typeof console == 'object')
+        {
+            console.log('dbg.eq','fail', msg, res, val);
+            console.assert(false, fn, res, val);
+        }
+        else
+            alert('dbg.eq fail: ' + msg  + ' === ' + String(res) + ' !== ' + String(val) );
+        if (dbg.assert.break)
+            debugger;
+    }
+    else
+        if (dbg.assert.log)
+        	if (typeof console == 'object')
+            	console.log('dbg.eq', 'pass', msg, val);
+            else
+          		alert('dbg.eq pass: ' + msg + ' === ' + String(res) + ' !== ' + String(val) );
+    return res;
+}
+
 dbg.assert = (fn, ...args)=>{
     if (dbg.assert.off || dbg.off)
         return [fn, ...args];
@@ -91,7 +130,7 @@ dbg.log = x=>{
     log.off = false;
     log('Visible');
     assert(()=>6 && !log.off);
-    
+
     dbg.assert.log = false;
     dbg.off = false;
 }})();
