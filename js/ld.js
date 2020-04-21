@@ -24,7 +24,7 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
         d[k] = val
         // need null by default because JSON.parse(JSON.stringify(undefined)) gives exception
         localStorage.setItem(safekey(map.k) + '/-/' + safekey(k), JSON.stringify(save(val)||null))
-        if(map.dbg) console.log('map.set',map.k,k,val,old)
+        if(map.dbg) console.log('map.set',map.k,k,val,'was',old)
         if(!old) savek_(map)
         return val
     };
