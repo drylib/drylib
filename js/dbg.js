@@ -26,7 +26,7 @@ dbg.eq = (fn, val)=>{
     {
         if (typeof console == 'object')
         {
-            console.log('dbg.eq','fail', msg, res, val);
+            console.log(dbg.logDate(), 'dbg.eq','fail', msg, res, val);
             console.assert(false, fn, res, val);
         }
         else
@@ -37,7 +37,7 @@ dbg.eq = (fn, val)=>{
     else
         if (dbg.assert.log)
         	if (typeof console == 'object')
-            	console.log('dbg.eq', 'pass', msg, val);
+            	console.log(dbg.logDate(), 'dbg.eq', 'pass', msg, val);
             else
           		alert('dbg.eq pass: ' + msg + ' === ' + String(res) + ' !== ' + String(val) );
     return res;
@@ -74,7 +74,7 @@ dbg.assert = (fn, ...args)=>{
     {
         if (typeof console == 'object')
         {
-            console.log('Fail', msg, res_args_log, args);
+            console.log(dbg.logDate(), 'Fail', msg, res_args_log, args);
             console.assert(false, fn, res_args, args);
         }
         else
@@ -85,7 +85,7 @@ dbg.assert = (fn, ...args)=>{
     else
         if (dbg.assert.log)
         	if (typeof console == 'object')
-            	console.log('Pass', msg, res_args_log, args);
+            	console.log(dbg.logDate(), 'Pass', msg, res_args_log, args);
             else
           		alert('Pass:' + msg);
     return res;
@@ -100,12 +100,21 @@ dbg.log = x=>{
     if (!dbg.log.off)
     {
         if (typeof console == 'object')
-            console.log(x);
+            console.log(dbg.logDate(),x);
         else
             dbg.show(x);
     }
     return x;
 };
+
+dbg.logDate = (x) => {
+    if(!x) x = new Date()
+    let opt = {hour12: false} // timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, 
+    return x.toLocaleString("ko-KR", opt).slice(9,11)
+      + ' ' + x.toLocaleString("en-US", opt).slice(-8)
+      + '.' + x.toISOString().slice(-4,-1)
+  }
+  
 
 ;(()=>{
     let off = false;
