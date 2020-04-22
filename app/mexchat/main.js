@@ -20,13 +20,13 @@ bot.run = ()=>{
     let stop = false;
 
     let body = $('body')
-    body.btn('refresh','Refresh').click(function(){
+
+    if(false)body.btn('refresh','Refresh').click(function(){
       mex.close()
       u_.map.clear()
       location.reload()
     })
 
-    body.btn('dbg','Debug').syncClick(function(){this.clsOnoff(cfg.dbg);}, function(){cfg.dbg = !cfg.dbg;})
     body.btn('reconn','Reconnect').syncClick(function(){this.clsOnoff(cfg.reconn);}, function(){cfg.reconn = !cfg.reconn;})
 
     let subscribe = {ui:body.btn(), on: cfgld.get('subscribe')||false }
@@ -60,65 +60,38 @@ bot.run = ()=>{
       })
     }
 
-    {
-      body.btn('export','Export').click(function(){
-        body.inputText('export',u_.map.export())
-      })
-    }
+    body.btn('export','Export').click(function(){body.inputText('export',u_.map.export())})
+    body.btn('dbg','Debug').syncClick(function(){this.clsOnoff(cfg.dbg);}, function(){cfg.dbg = !cfg.dbg;})
 
-    let tblWhalePos = body.tbl('chat whale pos');
+    let col_ = tl.lp('btn Buttons;role Role;time Time;name Name;count #;size Size;text Text')
+
     {
-      let tbl = tblWhalePos
+      let tbl = body.tbl('chat whale pos')
       let head = tbl.thead().tr();
-      head.th('btn').text('Buttons');
-      head.th('role').text('Role');
-      head.th('time').text('Time');
-      head.th('name').text('Name');
-      head.th('count').text('#');
-      head.th('size').text('Size');
-      head.th('text').text('Text')
+      for(let col in col_) head.th(col).text(col_[col]);
       u_.uiWhalePos = tbl.tbody('user_');
     }
 
-    let tblHigh = body.tbl('chat high');
     {
-      let tbl = tblHigh
+      let tbl = body.tbl('chat high')
       let head = tbl.thead().tr();
-      head.th('btn').text('Buttons');
-      head.th('role').text('Role');
-      head.th('time').text('Time');
-      head.th('name').text('Name');
-      head.th('count').text('#');
-      head.th('size').text('Size');
-      head.th('text').text('Text')
+      for(let col in col_) head.th(col).text(col_[col]);
       u_.uiHigh = tbl.tbody('user_');
     }
 
-    let tbl = body.tbl('chat');
     {
+      let tbl = body.tbl('chat pos');
       let head = tbl.thead().tr();
-      head.th('btn').text('Buttons');
-      head.th('role').text('Role');
-      head.th('time').text('Time');
-      head.th('name').text('Name');
-      head.th('count').text('#');
-      head.th('size').text('Size');
-      head.th('text').text('Text')
+      for(let col in col_) head.th(col).text(col_[col]);
+      u_.ui = tbl.tbody('user_');
     }
-    u_.ui = tbl.tbody('user_');
 
-    let tblLow = body.tbl('chat low');
     {
-      let head = tblLow.thead().tr();
-      head.th('btn').text('Buttons');
-      head.th('role').text('Role');
-      head.th('time').text('Time');
-      head.th('name').text('Name');
-      head.th('count').text('#');
-      head.th('size').text('Size');
-      head.th('text').text('Text')
+      let tbl = body.tbl('chat low')
+      let head = tbl.thead().tr();
+      for(let col in col_) head.th(col).text(col_[col]);
+      u_.uiLow = tbl.tbody('user_');
     }
-    u_.uiLow = tblLow.tbody('user_');
 
     bot.init = ()=>{
         let connect = ()=>{
@@ -255,55 +228,30 @@ bot.run = ()=>{
 
             {
               let td = ui.row.td('btn')
-              {
-                let btn = td.btn().text('^')
-                let upd = function(){btn.clsOnoff(d.fav)}
-                upd()
-                btn.click(function(){
-                  d.fav = !d.fav
-                  place()
-                  save(u)
-                  upd()
-                })
-              }
-              {
-                let btn = td.btn().text('$')
-                let upd = function(){btn.clsOnoff(d.whale)}
-                upd()
-                btn.click(function(){
-                  d.whale = !d.whale
-                  place()
-                  save(u)
-                  upd()
-                })
-              }
-              {
-                td.btn().text('_').syncClick(function(){this.clsOnoff(d.small)},
-                  function(){
-                    d.small = !d.small
-                    save(u)
-                    place()
-                  }
-                )
-              }
-              {
-                let btn = td.btn().text('\\')
-                let upd = function(){btn.clsOnoff(d.ban)}
-                upd()
-                btn.click(function(){
-                  d.ban = !d.ban
-                  iplace()
-                  save(u)
-                  upd()
-                })
-              }
-              {
-                let btn = td.btn().text('X')
-                btn.click(function(){
-                  u.ui.row.detach()
-                  u_.map.del(u.d.k)
-                })
-              }
+              td.btn('fav').text('^').syncClick(function(){this.clsOnoff(d.fav)},function(){
+                d.fav = !d.fav
+                save(u)
+                place()
+              })
+              td.btn('whale').text('$').syncClick(function(){this.clsOnoff(d.whale)},function(){
+                d.whale = !d.whale
+                save(u)
+                place()
+              })
+              td.btn('small').text('_').syncClick(function(){this.clsOnoff(d.small)},function(){
+                d.small = !d.small
+                save(u)
+                place()
+              })
+              td.btn('ban').text('\\').syncClick(function(){this.clsOnoff(d.ban)},function(){
+                d.ban = !d.ban
+                save(u)
+                place()
+              })
+              td.btn('del').text('X').syncClick(function(){},function(){
+                u.ui.row.detach()
+                u_.map.del(u.d.k)
+              })
             }
             {
               let td = ui.row.td('role')
