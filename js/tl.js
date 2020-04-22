@@ -1,4 +1,4 @@
-// Copyright (c) 2016 drylib.com - All rights reserved. Terms are in drylib.js
+//Copyright(c) 2016,2020 drylib.com All rights reserved. Terms are in drylib.js
 // You are NOT ALLOWED to modify and/or use this code without author permission
 "use strict";(function(){let dbg = drylib.dbg; let tr = drylib.tr; let val = drylib.val;
 
@@ -76,7 +76,7 @@ let tl = drylib.tl = (x)=>{
         ret = and('.',x);
         if (ret!=undefined)
             return ret;
-
+    
         ret = {};
         ret[x] = null;
         return ret;
@@ -85,8 +85,41 @@ let tl = drylib.tl = (x)=>{
         return x; // primitive non-string (number,bool, ...
 }
 
+tl.leafProp = (x)=>{ // merge leaves as upper level properties
+    for(let pn in x){
+        let pv = x[pn]
+        if(pv === null) continue
+        let count = 0
+        let complex = false
+        let last
+        let all = []
+        for(let cn in pv){
+            last = cn
+            all.push(last)
+            if(pv[cn] !== null){
+                complex = true
+                break
+            }else
+                count++
+        }
+        //console.log(all,last,complex)
+        if(complex)
+            tl.leafProp(pv)
+        else if(count == 1)
+            x[pn] = last
+        else
+            x[pn] = all
+    }
+    return x
+}
+
+let tlp = tl.lp = (x)=>{
+    return tl.leafProp(tl(x))
+}
+
+
 {// unit tests
-    let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
+    let dbg = drylib.dbg; let assert = dbg.assert, eq = dbg.eq, str = drylib.str; //dbg.assert.log = true;
     assert(()=> 1 && tl('')===null);
     assert(()=> 2 && tl('a').a===null);
 
@@ -120,4 +153,11 @@ let tl = drylib.tl = (x)=>{
     assert(()=> 12 && t.a.b===null && t.c.d===null);
     t=tl({'a b;c d,e':null});
     assert(()=> 13 && t.c.e===null);
+
+    t = tlp('a b,c.1,d.2;e 1,2,3');//dbg.log(str.jsonView(t))
+    eq(()=> 14.1 && tlp('a b').a, 'b');
+    eq(()=> 14.2 && tlp('a b,c').a[0], 'b');
+    eq(()=> 14.3 && tlp('a b.1,c.2').a.c, '2');
+    eq(()=> 14.4 && str.jsonView(t), '{a:{b:null,c:"1",d:"2"},e:["1","2","3"]}');
+    eq(()=> 14.5 && t.a.d, '2');
 }})();
