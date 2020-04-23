@@ -1,6 +1,6 @@
 "use strict";(function(){let bot = {};
 let dbg = drylib.dbg; let assert = dbg.assert; let log = dbg.log; dbg.assert.log = true; dbg.off = false;
-let it = drylib.it, arr = drylib.arr, str = drylib.str, tr = drylib.tr, tl = drylib.tl, g = drylib.g;
+let it = drylib.it, arr = drylib.arr, str = drylib.str, tr = drylib.tr, tl = drylib.tl, g = drylib.g, is = drylib.val.is;
 
 bot.run = ()=>{
     let test=false
@@ -15,6 +15,7 @@ bot.run = ()=>{
     let u_ = {
       map: drylib.ld('user_', v=>v.d, v=>{return {d:v}})
     };
+    u_.map.dbg = false
 
     let mex
     let stop = false;
@@ -64,33 +65,14 @@ bot.run = ()=>{
     body.btn('dbg','Debug').syncClick(function(){this.clsOnoff(cfg.dbg);}, function(){cfg.dbg = !cfg.dbg;})
 
     let col_ = tl.lp('btn Buttons;role Role;time Time;name Name;count #;size Size;text Text')
-
-    {
-      let tbl = body.tbl('chat whale pos')
+    let tbl_ = tl.lp('WhalePos whale,pos;High high;Pos pos;Ord ord;Low low')
+    for(let tblName in tbl_){
+      let cls = tbl_[tblName]
+      if(!is.str(cls)) cls = cls.join(' ')
+      let tbl = body.tbl('chat ' + cls)
       let head = tbl.thead().tr();
       for(let col in col_) head.th(col).text(col_[col]);
-      u_.uiWhalePos = tbl.tbody('user_');
-    }
-
-    {
-      let tbl = body.tbl('chat high')
-      let head = tbl.thead().tr();
-      for(let col in col_) head.th(col).text(col_[col]);
-      u_.uiHigh = tbl.tbody('user_');
-    }
-
-    {
-      let tbl = body.tbl('chat pos');
-      let head = tbl.thead().tr();
-      for(let col in col_) head.th(col).text(col_[col]);
-      u_.ui = tbl.tbody('user_');
-    }
-
-    {
-      let tbl = body.tbl('chat low')
-      let head = tbl.thead().tr();
-      for(let col in col_) head.th(col).text(col_[col]);
-      u_.uiLow = tbl.tbody('user_');
+      u_['ui'+tblName] = tbl.tbody('user_');
     }
 
     bot.init = ()=>{
@@ -174,6 +156,7 @@ bot.run = ()=>{
         function upd(u){
           let d = u.d
           let ui = u.ui
+          //console.log(d)
 
           let msg = d.msg
           let date = new Date(d.date)
@@ -204,7 +187,7 @@ bot.run = ()=>{
 
           if(!ui){
             ui = u.ui = {}
-            ui.row = u_.ui.tr()
+            ui.row = u_.uiPos.tr()
 
             let place = function(on){
               ui.row.detach()
@@ -216,9 +199,10 @@ bot.run = ()=>{
                   if(d.small) u_.uiHigh.append(ui.row)
                   else u_.uiHigh.prepend(ui.row)
                 else if(d.pos)
-                  if(d.small) u_.ui.append(ui.row)
-                  else u_.ui.prepend(ui.row)
+                  if(d.small) u_.uiPos.append(ui.row)
+                  else u_.uiPos.prepend(ui.row)
                 else if((d.bot || d.admin || d.ord) && !d.small) u_.uiLow.prepend(ui.row)
+                else if(d.ord) u_.uiOrd.append(ui.row)
                 else u_.uiLow.append(ui.row)
               }
               return on
@@ -228,26 +212,14 @@ bot.run = ()=>{
 
             {
               let td = ui.row.td('btn')
-              td.btn('fav').text('^').syncClick(function(){this.clsOnoff(d.fav)},function(){
-                d.fav = !d.fav
-                save(u)
-                place()
-              })
-              td.btn('whale').text('$').syncClick(function(){this.clsOnoff(d.whale)},function(){
-                d.whale = !d.whale
-                save(u)
-                place()
-              })
-              td.btn('small').text('_').syncClick(function(){this.clsOnoff(d.small)},function(){
-                d.small = !d.small
-                save(u)
-                place()
-              })
-              td.btn('ban').text('\\').syncClick(function(){this.clsOnoff(d.ban)},function(){
-                d.ban = !d.ban
-                save(u)
-                place()
-              })
+              let btn_ = tl.lp('fav ^;whale W;small _;ban \\')
+              for(let btn in btn_){
+                td.btn(btn).text(btn_[btn]).syncClick(function(){this.clsOnoff(d[btn])},function(){
+                  d[btn] = !d[btn]
+                  save(u)
+                  place()
+                })
+              }
               td.btn('del').text('X').syncClick(function(){},function(){
                 u.ui.row.detach()
                 u_.map.del(u.d.k)
