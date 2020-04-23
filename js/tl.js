@@ -86,9 +86,13 @@ let tl = drylib.tl = (x)=>{
 }
 
 tl.leafProp = (x)=>{ // merge leaves as upper level properties
+    let ret = {}
     for(let pn in x){
         let pv = x[pn]
-        if(pv === null) continue
+        if(pv === null){
+            ret[pn] = pv
+            continue
+        }
         let count = 0
         let complex = false
         let last
@@ -104,13 +108,13 @@ tl.leafProp = (x)=>{ // merge leaves as upper level properties
         }
         //console.log(all,last,complex)
         if(complex)
-            tl.leafProp(pv)
+            ret[pn] = tl.leafProp(pv)
         else if(count == 1)
-            x[pn] = last
+            ret[pn] = last
         else
-            x[pn] = all
+            ret[pn] = all
     }
-    return x
+    return ret
 }
 
 let tlp = tl.lp = (x)=>{
@@ -160,4 +164,9 @@ let tlp = tl.lp = (x)=>{
     eq(()=> 14.3 && tlp('a b.1,c.2').a.c, '2');
     eq(()=> 14.4 && str.jsonView(t), '{a:{b:null,c:"1",d:"2"},e:["1","2","3"]}');
     eq(()=> 14.5 && t.a.d, '2');
+
+    eq(()=> 15.1 && str.jsonView(tl('a b')), '{a:{b:null}}');
+    eq(()=> 15.2 && str.jsonView(tl('a $')), '{a:"$"}'); // irregular result
+    //console.log(str.jsonView(tl('a $'))) 
+    //console.log(str.jsonView(tlp('a $'))) //TODO fix infinite recursion bug with $
 }})();
