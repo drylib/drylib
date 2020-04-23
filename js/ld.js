@@ -24,7 +24,7 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
         d[k] = val
         // need null by default because JSON.parse(JSON.stringify(undefined)) gives exception
         localStorage.setItem(safekey(map.k) + '/-/' + safekey(k), JSON.stringify(save(val)||null))
-        if(map.dbg) console.log(dbg.logDate(),'map.set',map.k,k,val,'was',old)
+        if(map.dbg) console.log(dbg.logDate(),'ld.set',map.k,k,val,'was',old)
         if(!old) savek_(map)
         return val
     };
@@ -33,7 +33,7 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
         let ret = d[k]
         if(!ret) {
             let val = localStorage.getItem(safekey(map.k) + '/-/' + safekey(k))
-            if(map.dbg) console.log(dbg.logDate(),'map.get',map.k,k,val)
+            if(map.dbg) console.log(dbg.logDate(),'ld.get',map.k,k,val)
             if (val){
                 try{val = JSON.parse(val||null)}catch(e){dbg.log(['ld.get', map.k, k, 'Failed to parse', val])}
                 ret = load(val)
@@ -45,7 +45,7 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
 
     map.del = (k)=>{
         let ret = map.get(k)
-        if(map.dbg) console.log(dbg.logDate(),'map.del',map.k,k,ret)
+        if(map.dbg) console.log(dbg.logDate(),'ld.del',map.k,k,ret)
         delete d[k]
         localStorage.removeItem(safekey(map.k) + '/-/' + safekey(k))
         savek_(map)
@@ -54,6 +54,7 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
 
     map[Symbol.iterator] = function*(){
         let k_ = localStorage.getItem(safekey(map.k))
+        if(map.dbg) console.log(dbg.logDate(),'ld.keys',k_)
         if(!k_) return
         k_ = JSON.parse(k_)
         for(let k of k_)
