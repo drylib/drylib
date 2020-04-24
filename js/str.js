@@ -2,7 +2,7 @@
 // You are NOT ALLOWED to modify and/or use this code without author permission
 "use strict";(function(){let str = drylib.str = {}; let char = drylib.char = {};
 let dbg = drylib.dbg;
-let val = drylib.val;
+let val = drylib.val, is = val.is;
 
 String.prototype.toProperCase=function(){
     return this.substring(0,1).toUpperCase()+this.substring(1).toLowerCase();
@@ -72,8 +72,40 @@ str.json = function(o){
     //ret = ret.replace(/"([a-zA-Z0-9_])":/g,'$1:')
     return ret
 }
+
+str.parse = function(o){
+    if(o === undefined || o === null) return o
+    if(is.str(o)){
+        let v = o.toLowerCase().trim()
+        let n = Number(v.replace(',',''))
+        if(!isNaN(n))
+            return n
+        if(!isNaN(Date.parse(v)))
+            return Date.parse(v)
+        if(v==='true' || v==='false')
+            return JSON.parse(v)
+    }
+    if(is.obj(o))
+        for(let i in o)
+            o[i] = str.parse(o[i])
+    if(is.it(o)){
+        let ret = []
+        for(let v of o)
+            ret.push(str.parse(v))
+        return ret
+    }
+    return o
+}
+
+str.jsonViewParsed = function(o){
+    let ret = ''
+    ret = JSON.stringify(str.parse(o))
+    ret = ret.replace(/"([a-zA-Z0-9_])":/g,'$1:')
+    return ret
+}
 str.jsonView = function(o){
-    let ret = JSON.stringify(o)
+    let ret = ''
+    ret = JSON.stringify(o)
     ret = ret.replace(/"([a-zA-Z0-9_])":/g,'$1:')
     return ret
 }
@@ -81,7 +113,7 @@ str.jsonView = function(o){
 
 
 {// unit tests
-    let dbg = drylib.dbg; let assert = dbg.assert; //dbg.assert.log = true;
+    let dbg = drylib.dbg; let assert = dbg.assert, eq= dbg.eq; //dbg.assert.log = true;
     assert(()=>1 && Array.from(char.it.toUpperCase('abc'.split(''))).join('') == 'ABC');
     assert(()=>2 && Array.from(str.it.toUpperCase('abc def'.split(' '))).join(' ') == 'ABC DEF');
     
@@ -99,7 +131,12 @@ str.jsonView = function(o){
         assert(()=>2.3 && res3 === null);
     }
     assert(()=>3.1 && str.jsonView({a:1,b:"2"}) == '{a:1,b:"2"}');
+    assert(()=>3.2 && str.jsonViewParsed({a:1,b:"2"}) == '{a:1,b:2}');
     assert(()=>4.1 && str.it.join([1,2,3],'-') == '1-2-3');
     assert(()=>4.2 && str.it.join({a:1,b:2,c:3},'-') == 'a-b-c');
+    let t = str.parse({a:'1',b:'true'})
+    //console.log(t)
+    eq(()=>5.1 && t.a, 1);
+    eq(()=>5.2 && t.b, true);
 }
 })()

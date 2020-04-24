@@ -8,20 +8,22 @@ dbg.eq = (fn, val)=>{
     if (dbg.assert.off || dbg.off)
         return val;
     let res;
-    if (typeof fn == 'function')
-        res = fn();
-    else
-        res = fn();
-    let success = (res === val);
     let msg = '';
-    if (typeof fn == 'function')
-    {
+    if (typeof fn == 'function'){
         let removefn = fn.toString().match(/function.*\{\s*return(.*)\s*\}/i);
         if(removefn)
             msg = removefn[1].slice(0,-1);
         else
             msg = fn.toString();
-    }
+        try{
+            res = fn();
+        }catch(e){
+            console.log(dbg.logDate(), 'dbg.eq','fail eval', msg, res, val);
+            console.assert(false, fn, res, val);
+        }
+    }else
+        res = fn();
+    let success = (res === val);
     if (!success)
     {
         if (typeof console == 'object')

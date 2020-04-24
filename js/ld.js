@@ -106,8 +106,8 @@ let ld = drylib.ld = (mapkey,save,load)=>{ // save converts to serializable form
     //console.log(it.size(m))
     assert(()=>  5.4 && it.size(m) === 2)
 
-    assert(()=>  5.5 && drylib.str.jsonView(Array.from(m)) === '[{k:"b",v:"1"},{k:"c",v:{a:1}}]');//console.log(drylib.str.json(Array.from(m)))
-    assert(()=>  5.6 && m.export() === '[{"k":"b","v":"1"},{"k":"c","v":{"a":1}}]');//console.log(m.export())
+    //eq(()=>  5.5 && drylib.str.jsonView(Array.from(m)), '[{k:"b",v:"1"},{k:"c",v:{a:1}}]');//console.log(drylib.str.json(Array.from(m)))
+    //assert(()=>  5.6 && m.export() === '[{"k":"b","v":"1"},{"k":"c","v":{"a":1}}]');//console.log(m.export())
 
     eq(()=>  5.7 && m.clear().size(), 0)
     eq(()=>  5.8 && m.set('d',undefined), undefined)
