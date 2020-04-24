@@ -165,14 +165,15 @@ bot.run = ()=>{
             msg = pos.msg
             pos.msg = msg = msg.replace('\r','').replace('\n','')
             date = new Date(pos.date)
-            let size = pos.msg.match(/([0-9,.]+)/gi)
-            if(size){
+            let size = pos.msg.match(/([0-9,.-]+)/gi)
+            if(size && pos.msg.match(/```.*USD: .* Cont.*/gi)){
               pos.size = size = size[size.length-2]
               if(size){
-                size = Number(size.replace(',',''))
-                if(size > 30000)
+                size = Number(size.replace(/,/g,''))
+                if(Math.abs((pos.maxSize||0)) <= Math.abs(size))
+                  pos.maxSize = size
+                if(Math.abs(pos.maxSize) >= 70000)
                   d.whale = true
-                if((pos.maxSize||0) < size) pos.maxSize = size
               }
             }
           }
@@ -191,17 +192,18 @@ bot.run = ()=>{
 
             let place = function(on){
               ui.row.detach()
-              if(d.whale && d.pos){
+              if(d.whale && d.pos && !d.ban){
                 if(d.small) u_.uiWhalePos.append(ui.row)
                 else u_.uiWhalePos.prepend(ui.row)
               }else{
-                if(d.fav||d.whale)
-                  if(d.small) u_.uiHigh.append(ui.row)
-                  else u_.uiHigh.prepend(ui.row)
-                else if(d.pos)
+                if((d.fav||d.whale) && !d.ban)
+                  if(d.dir && !d.small) u_.uiHigh.prepend(ui.row)
+                  else u_.uiHigh.append(ui.row)
+                else if(d.pos && !d.ban)
                   if(d.small) u_.uiPos.append(ui.row)
                   else u_.uiPos.prepend(ui.row)
-                else if((d.bot || d.admin || d.ord) && !d.small) u_.uiLow.prepend(ui.row)
+                else if((d.bot || d.admin || d.ord || d.dir) && !d.small && !d.ban)
+                  u_.uiLow.prepend(ui.row)
                 else if(d.ord) u_.uiOrd.append(ui.row)
                 else u_.uiLow.append(ui.row)
               }
@@ -212,7 +214,7 @@ bot.run = ()=>{
 
             {
               let td = ui.row.td('btn')
-              let btn_ = tl.lp('fav ^;whale W;small _;ban \\')
+              let btn_ = tl.lp('dir !;fav ^;whale W;small _;ban \\')
               for(let btn in btn_){
                 td.btn(btn).text(btn_[btn]).syncClick(function(){this.clsOnoff(d[btn])},function(){
                   d[btn] = !d[btn]
