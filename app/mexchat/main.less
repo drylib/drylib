@@ -1,11 +1,10 @@
 body {
-    font-size:0.9em;
-    button{font-size:xx-small;}
     background-color: #222222;
     color: white;
     button {background-color:grey;}
     button.on{background-color:rgb(248, 66, 66);}
     a{color: #66cfff;}
+
     > span.convert > .val{width: 40em;}
     > span {
         margin-left:1em;
@@ -17,8 +16,10 @@ body {
         border:thin solid;
         td {padding: 0 3px 0 3px;}
         > tbody > tr {
-            max-width:100%;
             > td.time,td.btn {white-space:nowrap;}
+            > td.btn {
+                > button{font-size:xx-small;}
+            }
             > td.count {
                 background-color:rgb(73, 17, 69);
                 text-align:right;
@@ -27,11 +28,12 @@ body {
                 background-color:rgb(22, 99, 26);
                 text-align:right;
             }
-            > td.text {
+            > td.name, td.text {
                 white-space:wrap;
                 line-break:anywhere;
-                //max-width:500px;
             }
+            > td.name {width:8em;}
+            > td.text {font-size:0.95em;}
         }
     }
 }
