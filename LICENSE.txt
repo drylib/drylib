@@ -14,21 +14,23 @@
  Author addresses with fee schedule described below.
  
  License is automatically GRANTED upon network confirmation of transaction
- with license fees. Transactions usually become publicly visible on one of the
- following websites:
-                              for Bitcoin payments: https://blockchain.com
-                              for Ethereum payments: https://etherscan.io
+ with license fees. Transactions can be proven with the following ways:
+    Bitcoin: https://blockchain.com , https://btc.com
+    Ethereum: https://etherscan.io , https://ethplorer.io
+    Monero: https://web.getmonero.org/resources/user-guides/prove-payment.html
+            https://www.monero.how/tutorial-how-to-prove-payment
  
- You must retain control of your Bitcoin or Ethereum account for as long as you
- use this library. If you cannot prove ownership of your Bitcoin or Ethereum
- account at any time, you must consider license revoked and must pay license
- fees from another account.
+ You must retain control of your Bitcoin, Ethereum or Monero account for as
+ long as you use this library. If you cannot prove ownership of your Bitcoin,
+ Ethereum or Monero account at any time, you must consider license revoked
+ and must pay license fees from another account.
 
  Any execution of any part of this library for any purpose is considered usage.
  That includes, for example, execution for evaluation or development purposes.
  Reading the source code (or compiling for reading) is not considered usage.
 
- License costs 0.00085 BTC (or 0.033 ETH) per day per human user per machine.
+ License costs 0.0008 BTC (or 0.04 ETH or 0.125 XMR) per day per human user per
+ machine.
  If one user configures that software to run on multiple machines then
  daily license fee is multiplied by number of machines.
  If one machine is used or serviced by multiple human users then daily license
