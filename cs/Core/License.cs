@@ -5,6 +5,7 @@
     Copyright Holder (Author) addresses for payments and messages:
       Bitcoin payment and messages 17pYSowGmou3Qc9LhZyjXHhwpWLrmjB9MC
       Ethereum payment 0xb5ddeb3a54280c494a122b107b2e9f7d0e01c11a
+      Monero payment 42tPFmPCyNP2DASA3dHDc671GdtV7pW4TPZ9p72QeMif6DjKXEPrAdZf5KCXvK8qpxhtFu349FkjjEU3mudRtck86jpEtnN
 
     Contact info for questions and support:
       email author@drylib.com with word ""support"" in email subject line
